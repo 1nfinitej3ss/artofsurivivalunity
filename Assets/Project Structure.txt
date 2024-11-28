@@ -1,0 +1,24 @@
+----------------------------------------------------------------
+----------   MAIN SCRIPTS OVERVIEW   ----------
+----------------------------------------------------------------
+
+*** DayNightCycle2D ***
+The main script that controls the moon and sun, day and night as well as the game time mechanics.
+
+*** TimeManager ***
+A simple extension of DayNightCycle which adds methods when days and months pass in the DayNightCycle script.
+
+*** ProgressBarChanges ***
+This script is where we we actually set the code to execute when a day and a month pass, then update our attributes which are in the PlayerState script. We don't execute the code here but overload a method to the TimeManager's OnDayPassed() and OnMonthPassed() event action. The monthly + yearly summary are also present in this method as they are also called when a day or month has passed.
+
+*** ProgressBar ***
+This script is a modular progress bar component attached to all 5 attributes' bars. It has a method UpdateUI() which we subscribe to OnStateChanged delegate of PlayerState. This is to update the UI of the Progress Bars.
+
+*** GameController ***
+Nothing specific that it does in major. Anything that needs to be set in the NW live scene at the start or end is set in this; for example Unsubscribing the ProgressBar's UpdateUI() method from the PlayerState's OnStateChanged delegate - whenever a scene changes. It has some game-over and win methods but they have nothing to do with our game-over and victory mechanics; they were written before I started developing the game.
+
+*** PlayerController ***
+This script simply includes the player's movement, animations, speed, auto-move, gravity, input, etc. Nothing about game mechanics or attributes happening here. But the Player Death Function is present here which simply calls the Game Over Method in our GameController script; which we can also call directly from GameController. But we are not doing our game over or win via game controller so it is useless.
+
+*** Player Stats ***
+This is the main script which contains our values(attributes) as well as everything that we need to sync across scenes. The hold state, game over and game victory; all are written here.

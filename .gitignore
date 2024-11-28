@@ -1,0 +1,31 @@
+# User-specific files
+*.csproj
+*.sln
+*.userprefs
+
+# Logs
+*.log
+*.crash
+*.swp
+
+# Crash files
+*.json
+
+# Builds
+Builds/
+Build/
+
+# Temporary files
+Library/
+Temp/
+Obj/
+Logs/
+UserSettings/
+Packages/manifest.json.meta
+
+# Unity specific
+.DS_Store
+.vs/
+.vscode/
+mono_crash.*
+*.pidb
