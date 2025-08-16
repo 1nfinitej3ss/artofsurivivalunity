@@ -62,7 +62,15 @@ namespace PlanetRunner {
             Debug.Log($"Starting delay of {WaitSecondsOnStart} seconds before setting StartGame to true");
             yield return new WaitForSeconds(WaitSecondsOnStart);
             StartGame = true;
-            Debug.Log("Delay complete - StartGame set to true");
+            Debug.Log($"Delay complete - StartGame set to true. Player enabled: {PlayerState.Instance?.playerController?.enabled}");
+            
+            // Double-check player controller state
+            if (PlayerState.Instance?.playerController != null)
+            {
+                PlayerState.Instance.playerController.enabled = true;
+                PlayerState.Instance.playerController.ReconnectUIButtons();
+                Debug.Log("Player controller re-enabled and buttons reconnected after game start");
+            }
         }
 
         public void DoSetFinishLevel() {
@@ -74,8 +82,17 @@ namespace PlanetRunner {
         public void DoSetGameOverLevel() {
             StartGame = false;
             gameFinished = true;
-            GameOverDialog.SetActive(true);
-
+            
+            // Save the current state before transitioning
+            if (PlayerState.Instance != null)
+            {
+                PlayerState.Instance.SaveFinalScores();
+            }
+            
+            // Load the GameOver scene instead of just showing a dialog
+            SceneManager.LoadScene("GameOver");
+            
+            // Clean up the player object
             GameObject player = GameObject.FindGameObjectWithTag(Const.PLAYER);
             if (player != null) {
                 Destroy(player);
@@ -113,30 +130,34 @@ namespace PlanetRunner {
             }
         }
 
-        void Update() {
-            if (gameFinished) {
-                bool doRestartScene = false;
+        private void Update()
+        {
+            if (!StartGame || gameFinished)
+                return;
 
-                // If the game is finished or game over. After click space or tap restart scene
-                if (Input.GetButtonDown("Jump")) {
-                    doRestartScene = true;
-                }
-
-                if (Input.touchCount > 0) {
-                    foreach (Touch t in Input.touches) {
-                        if (t.phase == TouchPhase.Began) {
-                            doRestartScene = true;
-                        }
+            if (PlayerState.Instance != null)
+            {
+                string[] statsToCheck = { "Money", "Career", "Energy", "Creativity", "Time" };
+                foreach (var stat in statsToCheck)
+                {
+                    float value = PlayerState.Instance.GetPlayerValue(stat);
+                    if (value <= 20) // Log when getting close to zero
+                    {
+                        Debug.LogWarning($"[TimeCheck] {stat} is getting low: {value}");
                     }
-                }
-
-                if (doRestartScene) {
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                    if (value <= 0)
+                    {
+                        Debug.LogWarning($"[TimeCheck] {stat} has hit {value} - Setting game over pending");
+                        PlayerState.Instance.SetGameOverPending(true);
+                        return;
+                    }
                 }
             }
         }
 
-        public void OnSceneChanged() {
+        public void OnSceneChanged()
+        {
+            StartGame = false;
             PlayerState playerState = PlayerState.Instance;
             if (playerState != null)
             {
@@ -144,6 +165,7 @@ namespace PlanetRunner {
                 {
                     playerState.playerController.enabled = false;
                     playerState.playerController.SaveSpawnLocation();
+                    playerState.playerController.ResetMovementState();
                 }
 
                 if (playerState.playerRb != null)
@@ -151,7 +173,8 @@ namespace PlanetRunner {
                     playerState.playerRb.gravityScale = 0;
                 }
 
-                foreach (ProgressBar bar in progressBar) {
+                foreach (ProgressBar bar in progressBar)
+                {
                     if (bar != null)
                     {
                         bar.UnsubsribeUI();
@@ -165,8 +188,11 @@ namespace PlanetRunner {
         }
 
         private void SetCustomCursor() {
-            if (cursorTexture != null)
+            // Only set custom cursor if CursorManager is not present
+            if (FindObjectOfType<CursorManager>() == null && cursorTexture != null)
             {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
                 Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
             }
         }
@@ -187,10 +213,53 @@ namespace PlanetRunner {
             {
                 Debug.Log("Main scene loaded in GameController");
                 StartGame = false;
-                StartCoroutine(WaitAfterStartForSeconds());
-        // Reconnect player input handlers
-        ReconnectPlayerInputHandlers();                
+                
+                // Wait a frame to ensure all objects are properly initialized
+                StartCoroutine(SetupMainScene());
             }
+        }
+
+        private IEnumerator SetupMainScene()
+        {
+            yield return null;  // Wait one frame
+
+            // Find and setup player first
+            var player = GameObject.FindGameObjectWithTag(Const.PLAYER);
+            if (player != null)
+            {
+                var playerController = player.GetComponent<PlayerController>();
+                if (playerController != null)
+                {
+                    // Enable the controller
+                    playerController.enabled = true;
+                    
+                    // Reset state
+                    playerController.ResetMovementState();
+                    
+                    // Reconnect UI
+                    playerController.ReconnectUIButtons();
+                    
+                    // Update PlayerState
+                    if (PlayerState.Instance != null)
+                    {
+                        PlayerState.Instance.playerController = playerController;
+                        PlayerState.Instance.gameController = this;
+                    }
+                    
+                    Debug.Log("Player controller reset and reconnected");
+                }
+                else
+                {
+                    Debug.LogError("PlayerController component not found on player object");
+                }
+            }
+            else
+            {
+                Debug.LogError("Player object not found in scene");
+            }
+            
+            // Start the game after setup is complete
+            StartCoroutine(WaitAfterStartForSeconds());
         }
 
         private void ReconnectPlayerInputHandlers()
@@ -198,10 +267,11 @@ namespace PlanetRunner {
             if (PlayerState.Instance != null && PlayerState.Instance.playerController != null)
             {
                 var playerController = PlayerState.Instance.playerController;
+                // Reset movement state
                 playerController.OnMoveLeftButtonUp();
-                playerController.OnMoveLeftButtonDown();
                 playerController.OnMoveRightButtonUp();
-                playerController.OnMoveRightButtonDown();
+                // Reconnect UI buttons
+                playerController.ReconnectUIButtons();
             }
             else
             {

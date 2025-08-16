@@ -30,6 +30,11 @@ public class Scenarios : MonoBehaviour
     [SerializeField] private bool isAvailable4;
     [SerializeField] private int value4;
 
+    [Header("Outcome No. 5")]
+    [SerializeField] private TitleType title5;
+    [SerializeField] private bool isAvailable5;
+    [SerializeField] private int value5;
+
     private PlayerState playerState;
 
     public enum TitleType { Money, Career, Energy, Creativity, Time }
@@ -74,6 +79,13 @@ public class Scenarios : MonoBehaviour
         {
             playerState.SetPlayerValue(title4.ToString(), playerState.GetPlayerValue(title4.ToString()) + value4, false);
             Debug.Log("Player's " + title4.ToString() + " Has Been Changed By " + value4);
+        }
+
+        // Check if our Outcome 5 is enabled
+        if (isAvailable5)
+        {
+            playerState.SetPlayerValue(title5.ToString(), playerState.GetPlayerValue(title5.ToString()) + value5, false);
+            Debug.Log("Player's " + title5.ToString() + " Has Been Changed By " + value5);
         }
     }
 }

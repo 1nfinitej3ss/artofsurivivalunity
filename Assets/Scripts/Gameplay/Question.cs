@@ -79,7 +79,14 @@ public class Question : MonoBehaviour
     public void OnResultNextBtnClicked()
     {
         Debug.Log("Going Back To Main Scene");
-        if (sceneManager != null)
+        
+        // Check if game over is pending
+        if (PlayerState.Instance != null && PlayerState.Instance.IsGameOverPending())
+        {
+            Debug.Log("Game Over is pending, returning to main scene first");
+            SceneManager.LoadScene("main");
+        }
+        else if (sceneManager != null)
         {
             sceneManager.ReturnToMain();
         }

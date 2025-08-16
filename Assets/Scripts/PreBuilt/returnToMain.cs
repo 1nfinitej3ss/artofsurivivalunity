@@ -1,60 +1,118 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
+using PlanetRunner;
 
-public class returnToMain : MonoBehaviour
+public class ReturnToMain : MonoBehaviour
 {
     // Name of the scene you want to load
     public string sceneName;
     public GameObject gameOverCanvas;
     public GameObject nonGameOverCanvas;
+    public TextMeshProUGUI scoreText;
 
-    // Use this for initialization
     void Start()
     {
         // Reset Time
         Time.timeScale = 1f;
 
-        if (SceneManager.GetActiveScene().name == "GameOver")
+        string currentScene = SceneManager.GetActiveScene().name;
+        if (currentScene == "GameOver" || currentScene == "GameVictory")
         {
             GameOverInitialization();
         }
-
-        // Start the coroutine
-        StartCoroutine(LoadSceneAfterDelay());
     }
 
-    // Coroutine to load the scene after a delay
-    IEnumerator LoadSceneAfterDelay()
+    // Called by the restart button
+    public void RestartGame()
     {
-        DestroyPlayer();
+        // Reset Time
+        Time.timeScale = 1f;
 
-        // Wait for 5 seconds
-        yield return new WaitForSeconds(5);
+        try
+        {
+            // First disable any active controllers to prevent updates during cleanup
+            var gameController = FindObjectOfType<GameController>();
+            if (gameController != null)
+            {
+                gameController.enabled = false;
+            }
 
-        // Load the scene
-        SceneManager.LoadScene(sceneName);
-    }
+            var playerState = PlayerState.Instance;
+            if (playerState != null)
+            {
+                // Reset all player values to default before destroying
+                playerState.ResetAllValues();
+                playerState.enabled = false;
+            }
 
-    private void DestroyPlayer()
-    {
-        // Destroy Player
-        Destroy(PlayerState.Instance.gameObject);
-        Debug.Log("Player has been destoyed !");
+            // Clear all progress bars and UI subscriptions first
+            var progressBars = FindObjectsOfType<ProgressBar>();
+            foreach (var bar in progressBars)
+            {
+                if (bar != null)
+                {
+                    bar.UnsubsribeUI();
+                }
+            }
+
+            // Find and destroy ALL DontDestroyOnLoad objects
+            GameObject[] persistentObjects = FindObjectsOfType<GameObject>();
+            foreach (GameObject obj in persistentObjects)
+            {
+                if (obj.scene.name == "DontDestroyOnLoad")
+                {
+                    Destroy(obj);
+                    Debug.Log($"Destroyed persistent object: {obj.name}");
+                }
+            }
+
+            // Reset all saved data
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.Save(); // Force save the deletion
+            Debug.Log("All PlayerPrefs deleted and saved");
+
+            // Load the start scene
+            SceneManager.LoadScene("StartScene");
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"Error during restart: {e.Message}");
+            // Attempt to load start scene even if cleanup fails
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.Save();
+            SceneManager.LoadScene("StartScene");
+        }
     }
 
     private void GameOverInitialization()
     {
-        if (PlayerPrefs.HasKey("SpecialGameOver"))
+        // Only handle canvas toggling for game over scene
+        if (SceneManager.GetActiveScene().name == "GameOver")
         {
-            nonGameOverCanvas.SetActive(true);
-            gameOverCanvas.SetActive(false);
+            if (PlayerPrefs.HasKey("SpecialGameOver"))
+            {
+                nonGameOverCanvas.SetActive(true);
+                gameOverCanvas.SetActive(false);
+            }
+            else
+            {
+                gameOverCanvas.SetActive(true);
+                nonGameOverCanvas.SetActive(false);
+            }
         }
 
-        else
+        if (scoreText != null)
         {
-            gameOverCanvas.SetActive(true);
-            nonGameOverCanvas.SetActive(false);
+            // Get scores from PlayerPrefs instead of PlayerState
+            string scoreDisplay = "Final Scores:\n";
+            scoreDisplay += $"Money: {PlayerPrefs.GetInt("FinalMoney", 0)}\n";
+            scoreDisplay += $"Career: {PlayerPrefs.GetInt("FinalCareer", 0)}\n";
+            scoreDisplay += $"Energy: {PlayerPrefs.GetInt("FinalEnergy", 0)}\n";
+            scoreDisplay += $"Creativity: {PlayerPrefs.GetInt("FinalCreativity", 0)}\n";
+            scoreDisplay += $"Time: {PlayerPrefs.GetInt("FinalTime", 0)}";
+            
+            scoreText.text = scoreDisplay;
         }
     }
 }

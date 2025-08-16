@@ -30,7 +30,7 @@ public class TimeVisualizer : MonoBehaviour {
         int monthIndex = totalMonthsPassed % 12;
 
         if (yearIndex < 5) {
-            Debug.Log($"Setting Month {monthIndex + 1} of Year {yearIndex + 1} to zero height.");
+            //Debug.Log($"Setting Month {monthIndex + 1} of Year {yearIndex + 1} to zero height.");
             monthBarsRect[yearIndex][monthIndex].sizeDelta = new Vector2(monthBarsRect[yearIndex][monthIndex].sizeDelta.x, 0);
         }
 

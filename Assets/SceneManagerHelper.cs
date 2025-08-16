@@ -21,6 +21,53 @@ public class SceneManagerHelper : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        // Debug controls for testing
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            if (PlayerState.Instance != null)
+            {
+                // Set time to 0 to trigger game over
+                PlayerState.Instance.SetTime(0f, 0f, 0);
+                // Trigger game over directly
+                PlayerState.Instance.TriggerGameOver();
+                Debug.Log("Player state reset via debug command");
+            }
+            LoadGameOver();
+        }
+        else if (Input.GetKeyDown(KeyCode.Y))
+        {
+            LoadGameVictory();
+        }
+    }
+
+    public void LoadGameOver()
+    {
+        // Store player reference before loading game over scene
+        playerInstance = GameObject.FindGameObjectWithTag(Const.PLAYER);
+        if (playerInstance != null)
+        {
+            playerInstance.SetActive(false);
+        }
+
+        SceneManager.LoadScene("GameOver");
+        Debug.Log("Loading GameOver scene via debug command");
+    }
+
+    public void LoadGameVictory()
+    {
+        // Store player reference before loading victory scene
+        playerInstance = GameObject.FindGameObjectWithTag(Const.PLAYER);
+        if (playerInstance != null)
+        {
+            playerInstance.SetActive(false);
+        }
+
+        SceneManager.LoadScene("GameVictory");
+        Debug.Log("Loading GameVictory scene via debug command");
+    }
+
     public void LoadSubScene(string sceneName) 
     {
         // Store player reference before loading sub scene
@@ -30,6 +77,14 @@ public class SceneManagerHelper : MonoBehaviour
             DontDestroyOnLoad(playerInstance);
             playerInstance.SetActive(false);
         }
+
+        // Ensure LocationToggleManager persists
+        var toggleManager = LocationToggleManager.Instance;
+        if (toggleManager != null)
+        {
+            DontDestroyOnLoad(toggleManager.gameObject);
+        }
+        
         SceneManager.LoadScene(sceneName);
     }
 
@@ -55,8 +110,10 @@ public class SceneManagerHelper : MonoBehaviour
             if (playerController != null)
             {
                 playerController.enabled = true;
-                playerController.OnMoveLeftButtonUp();
-                playerController.OnMoveRightButtonUp();
+                Debug.Log("[SCENE] Player controller enabled");
+                
+                // Let the PlayerController handle its own initialization
+                playerController.ReconnectUIButtons();
                 
                 // Find planet and set look transform
                 var planet = GameObject.FindGameObjectWithTag("Planet");

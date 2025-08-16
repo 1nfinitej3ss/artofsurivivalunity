@@ -1,48 +1,57 @@
 using UnityEngine;
+using UnityEngine.UI; // Add this for UI components
+using UnityEngine.EventSystems; // Add this for IPointerEnterHandler and IPointerExitHandler
 using PlanetRunner;
 using UnityEngine.SceneManagement; // Replace "PlanetRunner" with the actual namespace of CameraController
 
 public class PrefabInteraction : MonoBehaviour
 {
-    public string dialogBoxTag; // Add this line
+    #region Serialized Fields
+    [SerializeField] private string m_BuildingId;  // e.g., "Hospital", "School", etc.
+    [SerializeField] private string m_SceneToLoad; // Scene to load when button is clicked
+    [SerializeField] private string m_DialogTag;   // Tag to identify which dialog content to show
+    #endregion
 
-    private GameObject dialogBox;
+    #region Properties
+    public string BuildingId => m_BuildingId;
+    public string DialogTag => m_DialogTag;
+    #endregion
 
-    void Start()
+    #region Trigger Methods
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        //Debug.Log("PrefabInteraction script has started.");  // Additional debug statement
-
-        dialogBox = GameObject.FindGameObjectWithTag(dialogBoxTag); // And change this line
-        if (dialogBox != null)
+        if (other.CompareTag("Player"))
         {
-            //Debug.Log(dialogBox.name + " Dialog Box found successfully!");
-            dialogBox.SetActive(false); // ensure the dialog box is deactivated at start
-        }
-        else
-        {
-            //Debug.Log(dialogBox.name + " Dialog Box not found, check if the tag is correct.");
+            Debug.Log($"Player entered 2D trigger for building: {m_BuildingId}");
+            BuildingButtonManager.Instance.ShowButton(m_BuildingId);
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter(Collider other)
     {
-        //Debug.DrawLine(transform.position, other.transform.position, Color.red, 2.0f);
-
-        //if (other.gameObject.CompareTag("Player"))
-        // if (other.gameObject.CompareTag("Player") && Camera.main.GetComponent<CameraController>().CameraFieldOfView > 15f)
-        if (other.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            //ebug.Log("Player entered trigger area.");
-            dialogBox.SetActive(true);
+            Debug.Log($"Player entered 3D trigger for building: {m_BuildingId}");
+            BuildingButtonManager.Instance.ShowButton(m_BuildingId);
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            //Debug.Log("Player left trigger area.");
-            dialogBox.SetActive(false);
+            Debug.Log($"Player exited 2D trigger for building: {m_BuildingId}");
+            BuildingButtonManager.Instance.HideButton(m_BuildingId);
         }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log($"Player exited 3D trigger for building: {m_BuildingId}");
+            BuildingButtonManager.Instance.HideButton(m_BuildingId);
+        }
+    }
+    #endregion
 }

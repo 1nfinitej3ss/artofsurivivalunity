@@ -8,10 +8,18 @@ namespace Assets.PixelFantasy.PixelMonsters.Common.Scripts.ExampleScripts
     public class MonsterAnimation : MonoBehaviour
     {
         private Monster _monster;
+        private SpriteRenderer m_SpriteRenderer;
 
         public void Start()
         {
             _monster = GetComponent<Monster>();
+            m_SpriteRenderer = GetComponent<SpriteRenderer>();
+            
+            // Check if this is a dead pig and play death animation
+            if (gameObject.CompareTag("DeadPig"))
+            {
+                Die();
+            }
         }
 
         public void SetState(MonsterState state)
@@ -95,6 +103,12 @@ namespace Assets.PixelFantasy.PixelMonsters.Common.Scripts.ExampleScripts
         public void Die()
         {
             SetState(MonsterState.Die);
+            
+            // Ensure sprite color is set to white with full opacity
+            if (m_SpriteRenderer != null)
+            {
+                m_SpriteRenderer.color = Color.white;
+            }
         }
         
         public void Attack()
@@ -110,6 +124,15 @@ namespace Assets.PixelFantasy.PixelMonsters.Common.Scripts.ExampleScripts
         public void Hit()
         {
             _monster.Animator.SetTrigger("Hit");
+        }
+
+        // Add this method to be called at the end of death animation through Animation Event
+        public void OnDeathAnimationComplete()
+        {
+            if (m_SpriteRenderer != null)
+            {
+                m_SpriteRenderer.color = Color.white;
+            }
         }
     }
 }

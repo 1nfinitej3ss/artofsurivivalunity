@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using PlanetRunner;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class PlayerState : MonoBehaviour
 {
@@ -58,17 +59,39 @@ public class PlayerState : MonoBehaviour
         {"Utilities" , 0},
         {"Groceries" , 0}
     };
-    public string chanceCardKey {  get; private set; }
+    public string chanceCardKey { get; private set; }
+
+    // Add these properties to the PlayerState class
+    public bool HasSavedTimeState { get; private set; } = false;
+    public float CurrentTimeOfDay { get; private set; }
+    public float TotalTimePassed { get; private set; }
+
+    // Add a new field to track if game over is pending
+    private bool isGameOverPending = false;
+
+    // Add near the top with other fields
+    private static bool s_SummaryActive = false;
+    public static bool IsSummaryActive => s_SummaryActive;
 
     // Initialization
     private void Awake()
     {
-        yearlySummaryTimeList = new List<int>(0);
-
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            
+            // Only initialize default values if they don't exist in PlayerPrefs
+            foreach (var stat in playerStats.Keys.ToList())
+            {
+                string prefsKey = $"Player{stat}";
+                if (PlayerPrefs.HasKey(prefsKey))
+                {
+                    float value = PlayerPrefs.GetInt(prefsKey);
+                    playerStats[stat] = value;
+                    Debug.Log($"Loaded {stat} from PlayerPrefs: {value}");
+                }
+            }
         }
         else
         {
@@ -79,10 +102,52 @@ public class PlayerState : MonoBehaviour
     private void Start()
     {
         // Set those charges once in the start of game, they won't be reset to this again as Start() wont be called again until we restart game.
-        SetMonthlyCharges(30 , 10 , 10);
+        SetMonthlyCharges(5 , 0 , 0);
 
         // Set the player's starting position when the scene loads
         SetPlayerStartPosition();
+    }
+
+    // Add this after the Start() method and before SetMonthlyCharges()
+    private void Update()
+    {
+        // Attribute deduction controls
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            float currentValue = GetPlayerValue("Money");
+            SetPlayerValue("Money", currentValue - 15, true);
+            Debug.Log($"Deducted 15 from Money. New value: {currentValue - 15}");
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            float currentValue = GetPlayerValue("Career");
+            SetPlayerValue("Career", currentValue - 15, true);
+            Debug.Log($"Deducted 15 from Career. New value: {currentValue - 15}");
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            float currentValue = GetPlayerValue("Energy");
+            SetPlayerValue("Energy", currentValue - 15, true);
+            Debug.Log($"Deducted 15 from Energy. New value: {currentValue - 15}");
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            float currentValue = GetPlayerValue("Health");
+            SetPlayerValue("Health", currentValue - 15, true);
+            Debug.Log($"Deducted 15 from Health. New value: {currentValue - 15}");
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            float currentValue = GetPlayerValue("Creativity");
+            SetPlayerValue("Creativity", currentValue - 15, true);
+            Debug.Log($"Deducted 15 from Creativity. New value: {currentValue - 15}");
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            float currentValue = GetPlayerValue("Time");
+            SetPlayerValue("Time", currentValue - 15, true);
+            Debug.Log($"Deducted 15 from Time. New value: {currentValue - 15}");
+        }
     }
 
     // Function to Set Monthly Charges
@@ -92,19 +157,14 @@ public class PlayerState : MonoBehaviour
     /// <param name="rent"></param>
     /// <param name="utilities"></param>
     /// <param name="groceries"></param>
-    public void SetMonthlyCharges(int rent , int utilities , int groceries)
+    public void SetMonthlyCharges(int rent, int utilities, int groceries)
     {
-        // Set Rent
-        monthlyCharges["Rent"] = monthlyCharges["Rent"] + rent;
-        //Debug.Log($"Monthly Charges (Rent) have been updated by {rent}");
+        // Set absolute values instead of adding to existing
+        monthlyCharges["Rent"] = rent;
+        monthlyCharges["Utilities"] = utilities;
+        monthlyCharges["Groceries"] = groceries;
 
-        // Set Utilities
-        monthlyCharges["Utilities"] = monthlyCharges["Utilities"] + utilities;
-        //Debug.Log($"Monthly Charges (Utilities) have been updated by {utilities}");
-
-        // Set Groceries
-        monthlyCharges["Groceries"] = monthlyCharges["Groceries"] + utilities;
-        //Debug.Log($"Monthly Charges (Groceries) have been updated by {groceries}");
+        Debug.Log($"Monthly charges set - Rent: ${rent}, Utilities: ${utilities}, Groceries: ${groceries}");
     }
 
     public int GetMonthlyCharges(string key)
@@ -124,17 +184,18 @@ public class PlayerState : MonoBehaviour
     // This method is called in ProgressBarChanges in the HandleMonthPassed Method
     public void DeductMonthlyCharges()
     {
-        // Save a temp var of the amount of money we have
         float currentMoney = GetPlayerValue("Money");
+        float totalDeduction = 0;
 
-        // Deduct the amount of each item in our monthlyCharges from our currentMoney
-        foreach (var item in monthlyCharges)
+        foreach (var charge in monthlyCharges)
         {
-            currentMoney -= item.Value;
+            totalDeduction += charge.Value;
         }
 
-        // Update our actual "Money" Attribute by replacing it with our temp currentMoney
-        SetPlayerValue("Money", currentMoney, true);
+        float newBalance = currentMoney - totalDeduction;
+        SetPlayerValue("Money", newBalance, true);
+
+        Debug.Log($"Monthly charges deducted - Total: ${totalDeduction}, New Balance: ${newBalance}");
     }
 
     // Function to get player values
@@ -147,16 +208,33 @@ public class PlayerState : MonoBehaviour
     }
 
     // Function to set player values and trigger the event
-    public void SetPlayerValue(string key, float value , bool checkChanceCard)
+    public void SetPlayerValue(string key, float value, bool triggerEvent = true)
     {
+        if (!playerStats.ContainsKey(key))
+        {
+            Debug.LogError($"[TimeCheck] Trying to set non-existent stat: {key}");
+            return;
+        }
+
+        // Add detailed logging for time attribute changes
+        if (key == "Time")
+        {
+            Debug.Log($"[TimeCheck] Time value changing from {playerStats[key]} to {value}. Stack Trace:\n{System.Environment.StackTrace}");
+        }
+
         playerStats[key] = value;
-        OnStateChange?.Invoke(key, (int)value);
+        
+        if (triggerEvent)
+        {
+            OnStateChange?.Invoke(key, (int)value);
+        }
 
-        // If our value is in hold state and we jsut set its value above 20, remove it from hold state state
-        HoldStateCheck(key , value);
-
-        // Game Over + Chance Card Checking
-        CheckForAlerts(checkChanceCard);
+        // Check for game over condition
+        if (value <= 0)
+        {
+            Debug.LogError($"[TimeCheck] {key} has reached {value}. Stack Trace:\n{System.Environment.StackTrace}");
+            GameOverTrigger();
+        }
     }
 
     private void HoldStateCheck(string key, float value)
@@ -165,16 +243,23 @@ public class PlayerState : MonoBehaviour
         {
             // Remove that Hold State; we can start Chance Card now for this key
             SetHoldState(key , false);
-
-            //Debug.Log($"Hold State Removed From - {key}");
+            Debug.Log($"[TimeCheck] Hold State Removed From - {key}");
         }
     }
 
     private void CheckForAlerts(bool checkChanceCard)
     {
-        // Addind the gameover condition prevents chance card scene to open after the game is over
-        // Adding checkChanceCard condition becuase we don't want to check Chance Card always (For exmaple just coming out of Chance Card)
-        if (!GameOverTrigger() && checkChanceCard)
+        // Only check game over once
+        bool isGameOver = GameOverTrigger();
+        
+        if (isGameOver)
+        {
+            Debug.Log("[TimeCheck] Game over condition detected in CheckForAlerts");
+            return;
+        }
+
+        // Only check chance card if no game over and checkChanceCard is true
+        if (checkChanceCard)
         {
             ChanceCardTrigger();
         }
@@ -182,58 +267,33 @@ public class PlayerState : MonoBehaviour
 
     private bool GameOverTrigger()
     {
-        // Make temp bool to return either game is over or not
-        bool isGameOver = false;
-
         foreach (var stat in playerStats)
         {
+            Debug.LogError($"[TimeCheck] Checking {stat.Key}: {stat.Value}");
             if (stat.Value <= 0)
             {
-                // Console Awareness
-                Debug.Log($"{stat.Key} - IS 0... GAME OVER!");
-
-                // Add Game Over System Here
-                isGameOver = true;
-                GameOver();
-
-                // Break our foreach loop so it doesn't start our game over logic again if there is more than one value = 0
-                break;
+                Debug.LogError($"[TimeCheck] GAME OVER triggered by {stat.Key} at {stat.Value}");
+                SaveFinalScores();
+                isGameOverPending = true;
+                return true;
             }
         }
-
-        return isGameOver;
+        return false;
     }
 
     private void ChanceCardTrigger()
     {
         foreach (var stat in playerStats)
         {
-            if (stat.Value <= 20 && playerHoldState[stat.Key] != true)
+            if (stat.Value <= 0)
             {
-                // Console Awareness
-                Debug.Log($"{stat.Key} has reached 20 or less... CHANCE CARD OPENING!");
-
-                // Save which value has reached 20 or less; we need this for ChanceCard Title Text
-                chanceCardKey = stat.Key;
-
-                // Activate Hold State
-                SetHoldState(stat.Key , true);
-                Debug.Log($"Hold State Added To - {stat.Key}");
-
-                // Update game mechanics + game controller that we are going to chance card
-                // Adding an if condition becuase we only want this in NW live scene; check the GameController's OnSceneChanged() for more info.
-                if(SceneManager.GetActiveScene().name == "NW live")
-                {
-                    gameController.OnSceneChanged();
-                }
-
-                // Add Chance Card Opening System Here
-                playerController.StartChanceCard();
-
-                // Break our foreach loop so it doesn't start our chance card again if there is more than one value below 20
-                break;
+                Debug.Log($"[TimeCheck] {stat.Key} - IS 0... GAME OVER!");
+                SaveFinalScores();  // Make sure to save scores
+                isGameOverPending = true;
+                return;
             }
         }
+        // ... rest of chance card logic
     }
 
     // Method to set the player to the starting position
@@ -267,10 +327,23 @@ public class PlayerState : MonoBehaviour
     /// ------------    GAME OVER    ------------
     /// -----------------------------------------
     
-    private void GameOver()
+    public void SaveFinalScores()
     {
-        // Start Game Over!
-        SceneManager.LoadScene(gameOverSceneName);
+        Debug.Log("[TimeCheck] Saving final scores to PlayerPrefs:");
+        foreach (var stat in playerStats)
+        {
+            int value = (int)stat.Value;
+            PlayerPrefs.SetInt($"Final{stat.Key}", value);
+            Debug.Log($"[TimeCheck] Saved {stat.Key}: {value}");
+        }
+        PlayerPrefs.Save();
+    }
+
+    public void GameOver()
+    {
+        Debug.LogError("[TimeCheck] GameOver() called - About to load GameOver scene");
+        SaveFinalScores();
+        SceneManager.LoadScene("GameOver");
     }
 
     /// -----------------------------------------
@@ -280,8 +353,18 @@ public class PlayerState : MonoBehaviour
     // This is called in TimeManager's Update()
     public void GameVictory()
     {
-        // Start Game Victory!
-        SceneManager.LoadScene(gameVictorySceneName);
+        // Save final scores before transitioning
+        SaveFinalScores();
+        
+        // Disable the player controller if it exists
+        if (playerController != null)
+        {
+            playerController.enabled = false;
+            playerController.gameObject.SetActive(false);
+        }
+        
+        // Load the victory scene
+        SceneManager.LoadScene("GameVictory");
     }
     
     private void OnEnable()
@@ -298,23 +381,117 @@ public class PlayerState : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "MainScene")
+        // Check for both possible scene names
+        if (scene.name == "MainScene" || scene.name == "main")
         {
-            SetPlayerStartPosition(); // Reset the player's position
+            Debug.Log($"Main scene loaded. Scene name: {scene.name}");
+            
+            // Ensure we have a player controller
+            if (playerController == null)
+            {
+                playerController = FindObjectOfType<PlayerController>();
+                Debug.Log($"Looking for PlayerController: {(playerController != null ? "Found" : "Not Found")}");
+            }
+
             if (playerController != null)
             {
                 playerController.enabled = true;
-                playerController.gameObject.SetActive(true); // Ensure the player is active
-                //Debug.Log("PlayerController activated and positioned in MainScene.");
+                playerController.gameObject.SetActive(true);
+                SetPlayerStartPosition();
+                Debug.Log("PlayerController activated and positioned");
             }
             else
             {
-                //Debug.LogError("PlayerController is not assigned.");
+                Debug.LogError("PlayerController not found in main scene!");
             }
-            
         }
-        //Debug.Log($"PlayerController position: {playerController.transform.position}, active: {playerController.gameObject.activeInHierarchy}");
+    }
 
+    // Add these methods to set the values
+    public void SaveTimeState(float currentTimeOfDay, float totalTimePassed)
+    {
+        CurrentTimeOfDay = currentTimeOfDay;
+        TotalTimePassed = totalTimePassed;
+        HasSavedTimeState = true;
+    }
+
+    // Let the scene manager handle the actual transition
+    public bool IsGameOverPending()
+    {
+        return isGameOverPending;
+    }
+
+    public void TriggerGameOver()
+    {
+        Debug.LogWarning($"[TimeCheck] TriggerGameOver called. isGameOverPending: {isGameOverPending}");
+        if (isGameOverPending)
+        {
+            string currentScene = SceneManager.GetActiveScene().name;
+            if (currentScene == "main")
+            {
+                Debug.LogWarning("[TimeCheck] In main scene, loading GameOver scene...");
+                isGameOverPending = false;
+                GameOver();
+            }
+            else
+            {
+                Debug.LogWarning($"[TimeCheck] Not in main scene ({currentScene}), game over will trigger when returning to main");
+            }
+        }
+    }
+
+    public void ResetAllValues()
+    {
+        // Reset all player values to their starting defaults
+        SetPlayerValue("Money", 0, false);
+        SetPlayerValue("Career", 0, false);
+        SetPlayerValue("Energy", 100, false);
+        SetPlayerValue("Health", 100, false);
+        SetPlayerValue("Creativity", 0, false);
+        SetPlayerValue("Time", 0, false);
+        
+        // Reset any other state variables
+        HasSavedTimeState = false;
+        CurrentTimeOfDay = 0;
+        TotalTimePassed = 0;
+        
+        // Reset hold states
+        foreach (var key in playerHoldState.Keys.ToList())
+        {
+            playerHoldState[key] = false;
+        }
+        
+        // Trigger UI update for each stat
+        foreach (var stat in playerStats)
+        {
+            OnStateChange?.Invoke(stat.Key, (int)stat.Value);
+        }
+    }
+
+    // Add this method
+    public void SetChanceCardKey(string key)
+    {
+        chanceCardKey = key;
+        Debug.Log($"Set chanceCardKey to: {key}");
+    }
+
+    // Add this helper method to check if any days have passed
+    public bool HasAnyDaysPassed()
+    {
+        return totalDaysPassed > 0;
+    }
+
+    // Add these public methods to manage the summary state
+    public static void SetSummaryActive(bool active)
+    {
+        s_SummaryActive = active;
+        Debug.Log($"Summary active state set to: {active}");
+    }
+
+    public void SetGameOverPending(bool _isPending)
+    {
+        isGameOverPending = _isPending;
+        Debug.Log($"Game over pending set to: {_isPending}");
     }
 }
 

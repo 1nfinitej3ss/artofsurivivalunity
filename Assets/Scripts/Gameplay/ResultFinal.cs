@@ -95,10 +95,15 @@ public class ResultFinal : MonoBehaviour
     public void HomeQuestion2OptionA()
     {
         // Save that we would open special game over screen in game over scene; check returnToMain script for more details
-        PlayerPrefs.HasKey("SpecialGameOver");
+        PlayerPrefs.SetInt("SpecialGameOver", 1);
+        PlayerPrefs.Save();
 
-        // Start Game Over Scene !
-        SceneManager.LoadScene("GameOver");
+        // Set game over pending and return to main scene
+        if (PlayerState.Instance != null)
+        {
+            PlayerState.Instance.SetGameOverPending(true);
+            SceneManager.LoadScene("main");
+        }
     }
 
     public void HomeQuestion4OptionB()
@@ -123,7 +128,7 @@ public class ResultFinal : MonoBehaviour
             playerState.SetPlayerValue("Money", playerState.GetPlayerValue("Money") + 30, true);
             Debug.Log("Player's Money Has Been Changed By +30");
 
-            workQuestion2OptionCResultValuesText.text = "–30 Energy\n+30 Money";
+            workQuestion2OptionCResultValuesText.text = "ï¿½30 Energy\n+30 Money";
         }
 
         // -30
@@ -132,7 +137,7 @@ public class ResultFinal : MonoBehaviour
             playerState.SetPlayerValue("Money", playerState.GetPlayerValue("Money") - 30, true);
             Debug.Log("Player's Money Has Been Changed By -30");
 
-            workQuestion2OptionCResultValuesText.text = "–30 Energy\n-30 Money";
+            workQuestion2OptionCResultValuesText.text = "ï¿½30 Energy\n-30 Money";
         }
     }
 

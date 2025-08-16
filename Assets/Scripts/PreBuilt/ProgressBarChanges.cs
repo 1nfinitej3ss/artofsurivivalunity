@@ -2,44 +2,76 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using PlanetRunner;  // Add this for PlayerController
 
 public class ProgressBarChanges : MonoBehaviour 
 {
-    public GameObject MonthlySummary;
+    [Header("UI References")]
+    [SerializeField, Tooltip("The Monthly Summary panel GameObject")]
+    private GameObject MonthlySummary;
+    [SerializeField, Tooltip("The TextMeshProUGUI component for displaying monthly values")]
+    private TextMeshProUGUI monthlySummaryValueText;
     public GameObject YearlySummary;
     public GameObject YearlySummaryOptions;
     public GameObject YearlySummaryResult;
     public TimeManager timeManager;
-    public TextMeshProUGUI monthlySummaryValueText;
 
     private PlayerState playerState;
     private ProgressBar moneyProgressBar;
     
 
-    void Start()
+    private void OnEnable()
     {
-        // Subscribe to the Month, Day and Year Passed event
+        Debug.Log("ProgressBarChanges: OnEnable - Subscribing to events");
         TimeManager.OnMonthPassed += HandleMonthPassed;
         TimeManager.OnDayPassed += HandleDayPassed;
+    }
 
-        // Find the ProgressBar with a TitleType of Money
-        ProgressBar[] progressBars = FindObjectsOfType<ProgressBar>();
-        foreach (ProgressBar progressBar in progressBars) 
+    void Start()
+    {
+        Debug.Log("ProgressBarChanges: Start method called");
+        
+        // Ensure we have a reference to TimeManager
+        if (timeManager == null)
         {
-            if (progressBar.titleType == ProgressBar.TitleType.Money) 
+            timeManager = FindObjectOfType<TimeManager>();
+            if (timeManager == null)
             {
-                moneyProgressBar = progressBar;
-                break;
+                Debug.LogError("TimeManager reference not found!");
+                return;
             }
         }
-        
-        if(moneyProgressBar == null) 
+
+        // Verify UI components
+        if (MonthlySummary == null)
         {
-            //Debug.LogError("No Money ProgressBar found in the scene!");
+            Debug.LogError("Monthly Summary GameObject is null!");
+        }
+        if (monthlySummaryValueText == null)
+        {
+            Debug.LogError("Monthly Summary Value Text component is null!");
         }
 
+        // Verify PlayerState
         playerState = PlayerState.Instance;
+        if (playerState == null)
+        {
+            Debug.LogError("PlayerState not found!");
+            return;
+        }
+
+        // Double-check event subscription
+        Debug.Log($"Monthly event has {TimeManager.GetMonthlySubscriberCount()} subscribers after Start");
+
+        MonthlySummary?.SetActive(false);
         SetYearlySummaryTime();
+    }
+
+    private void OnDisable()
+    {
+        Debug.Log("ProgressBarChanges: OnDisable - Unsubscribing from events");
+        TimeManager.OnDayPassed -= HandleDayPassed;
+        TimeManager.OnMonthPassed -= HandleMonthPassed;
     }
 
     // Method to handle what happens when a day passes
@@ -51,18 +83,53 @@ public class ProgressBarChanges : MonoBehaviour
     // Method to handle what happens when a month passes
     private void HandleMonthPassed()
     {
-        // Deduct Monthly Charges
+        Debug.Log($"Month passed - handling monthly deductions (Day: {timeManager.totalDaysPassed})");
+        
+        // Verify we're in the correct scene
+        Debug.Log($"Current scene: {UnityEngine.SceneManagement.SceneManager.GetActiveScene().name}");
+        
+        // Verify components
+        if (timeManager == null)
+        {
+            Debug.LogError("TimeManager is null in HandleMonthPassed!");
+            return;
+        }
+
+        if (PlayerState.Instance == null)
+        {
+            Debug.LogError("PlayerState is null during monthly deduction!");
+            return;
+        }
+
+        // First apply any monthly effects from questions
+        QuestionTemplate.ApplyMonthlyEffects();
+
+        // Add check for UI components
+        if (MonthlySummary == null || monthlySummaryValueText == null)
+        {
+            Debug.LogError("Monthly Summary UI components missing during monthly update!");
+            return;
+        }
+
+        Debug.Log($"Current monthly charges - Rent: {PlayerState.Instance.GetMonthlyCharges("Rent")}, " +
+                  $"Utilities: {PlayerState.Instance.GetMonthlyCharges("Utilities")}, " +
+                  $"Groceries: {PlayerState.Instance.GetMonthlyCharges("Groceries")}");
+
+        int totalCharges = PlayerState.Instance.GetMonthlyCharges("Rent") + 
+                          PlayerState.Instance.GetMonthlyCharges("Utilities") + 
+                          PlayerState.Instance.GetMonthlyCharges("Groceries");
+
         PlayerState.Instance.DeductMonthlyCharges();
-
-        // Enable Monthly Summary
+        
+        // Add check for time scale
+        if (Time.timeScale == 0)
+        {
+            Debug.LogWarning("Time is paused during monthly update!");
+        }
+        
         EnableMonthlySummary();
-    }
-
-    // Unsubscribe from the OnDayPassed event when the object is destroyed
-    private void OnDestroy()
-    {
-        TimeManager.OnDayPassed -= HandleDayPassed;
-        TimeManager.OnMonthPassed -= HandleMonthPassed;
+        
+        Debug.Log($"Monthly charges deducted: {totalCharges}");
     }
 
     /// -----------------------------------------
@@ -71,29 +138,58 @@ public class ProgressBarChanges : MonoBehaviour
 
     private void EnableMonthlySummary()
     {
-        // Update Values of Monthly Summary
-        monthlySummaryValueText.text = $"Rent (-{PlayerState.Instance.GetMonthlyCharges("Rent")})\nUtilities (-{PlayerState.Instance.GetMonthlyCharges("Utilities")})\nGroceries (-{PlayerState.Instance.GetMonthlyCharges("Groceries")})";
+        Debug.Log("Attempting to enable monthly summary");
+        
+        if (MonthlySummary == null || monthlySummaryValueText == null)
+        {
+            Debug.LogError("Monthly Summary UI components missing!");
+            return;
+        }
 
-        // Enable Summary
+        // Set summary active flag
+        PlayerState.SetSummaryActive(true);
+
+        // Format the text with current values
+        string summaryText = $"Monthly Expenses:\n\n" +
+                           $"Rent: -${PlayerState.Instance.GetMonthlyCharges("Rent")}\n" +
+                           $"Utilities: -${PlayerState.Instance.GetMonthlyCharges("Utilities")}\n" +
+                           $"Groceries: -${PlayerState.Instance.GetMonthlyCharges("Groceries")}";
+
+        monthlySummaryValueText.text = summaryText;
         MonthlySummary.SetActive(true);
-
-        // Show Update In Console
-        Debug.Log("A Month Has Been Passed --- Rent + Utilities + Groceries = Total -50 Money --- Have Been Deducted");
-
-        // Stop Time
-        Time.timeScale = 0f;
+        Debug.Log("Monthly Summary panel displayed");
     }
 
-    // This is set to OnBtnClick() of NextBtn present on the MonthlySummary Object in NW live scene
     public void DisableMonthlySummary()
     {
-        // Start Time
-        Time.timeScale = 1f;
+        Time.timeScale = 1f;  // Resumes the game
+        
+        // Clear summary active flag
+        PlayerState.SetSummaryActive(false);
 
         // Disable Summary
         MonthlySummary.SetActive(false);
 
-        //Debug.Log("Monthly Summary Disabled!");
+        // Now check for chance card conditions
+        if (PlayerState.Instance != null)
+        {
+            string[] statsToCheck = { "Money", "Career", "Energy", "Creativity", "Time" };
+            foreach (var stat in statsToCheck)
+            {
+                float value = PlayerState.Instance.GetPlayerValue(stat);
+                // Check if value is in critical range (0-20)
+                if (value > 0 && value <= 20)
+                {
+                    Debug.Log($"{stat} is at critical level: {value}");
+                    var playerController = FindObjectOfType<PlayerController>();
+                    if (playerController != null)
+                    {
+                        playerController.StartChanceCard();
+                    }
+                    break;
+                }
+            }
+        }
     }
 
     /// -----------------------------------------
@@ -160,28 +256,47 @@ public class ProgressBarChanges : MonoBehaviour
 
     private void EnableYearlySummary()
     {
+        // Set summary active flag
+        PlayerState.SetSummaryActive(true);
+
         // Enable Summary
         YearlySummary.SetActive(true);
         YearlySummaryOptions.SetActive(true);
         YearlySummaryResult.SetActive(false);
 
-       // Debug.Log("Yearly Summary is Opened On Day " + timeManager.totalDaysPassed);
-
-        // Stop Time
-        Time.timeScale = 0f;
+        Debug.Log("Yearly Summary is Opened On Day " + timeManager.totalDaysPassed);
     }
 
-    // This is set to OnBtnClick() of ContinueBtn present on the Options Panel on YearlySummary Object in NW live scene
-    // Also on the Result's NextBtn on the same Yaerly Summary Obj
     public void DisableYearlySummary()
     {
-        // Start Time
-        Time.timeScale = 1f;
+        Time.timeScale = 1f;  // Resumes the game
+
+        // Clear summary active flag
+        PlayerState.SetSummaryActive(false);
 
         // Disable Summary
         YearlySummary.SetActive(false);
 
-       // Debug.Log("Yearly Summary Disabled!");
+        // Now check for chance card conditions
+        if (PlayerState.Instance != null)
+        {
+            string[] statsToCheck = { "Money", "Career", "Energy", "Creativity", "Time" };
+            foreach (var stat in statsToCheck)
+            {
+                float value = PlayerState.Instance.GetPlayerValue(stat);
+                // Check if value is in critical range (0-20)
+                if (value > 0 && value <= 20)
+                {
+                    Debug.Log($"{stat} is at critical level: {value}");
+                    var playerController = FindObjectOfType<PlayerController>();
+                    if (playerController != null)
+                    {
+                        playerController.StartChanceCard();
+                    }
+                    break;
+                }
+            }
+        }
     }
 
     // This is set on OnBtnClick() of Upgrade Btn of Yearly Summary Obj
@@ -194,5 +309,55 @@ public class ProgressBarChanges : MonoBehaviour
        // Debug.Log("Upgraded Living Standards via Yearly Summary!");
     }
 
-    
+    public void OnUpgradeEnvironment()
+    {
+        // First modify the charges...
+        int currentRent = PlayerState.Instance.GetMonthlyCharges("Rent");
+        int currentUtilities = PlayerState.Instance.GetMonthlyCharges("Utilities");
+        int currentGroceries = PlayerState.Instance.GetMonthlyCharges("Groceries");
+        
+        PlayerState.Instance.SetMonthlyCharges(
+            currentRent + 5,
+            currentUtilities + 5,
+            currentGroceries
+        );
+        
+        // Check if this is a yearly or monthly summary and disable accordingly
+        if (YearlySummary != null && YearlySummary.activeSelf)
+        {
+            DisableYearlySummary();
+        }
+        else
+        {
+            DisableMonthlySummary();
+        }
+        
+        Debug.Log("Living environment upgraded - Monthly charges increased");
+    }
+
+    public void OnDowngradeEnvironment()
+    {
+        // First modify the charges...
+        int currentRent = PlayerState.Instance.GetMonthlyCharges("Rent");
+        int currentUtilities = PlayerState.Instance.GetMonthlyCharges("Utilities");
+        int currentGroceries = PlayerState.Instance.GetMonthlyCharges("Groceries");
+        
+        PlayerState.Instance.SetMonthlyCharges(
+            currentRent - 5,
+            currentUtilities - 5,
+            currentGroceries
+        );
+        
+        // Check if this is a yearly or monthly summary and disable accordingly
+        if (YearlySummary != null && YearlySummary.activeSelf)
+        {
+            DisableYearlySummary();
+        }
+        else
+        {
+            DisableMonthlySummary();
+        }
+        
+        Debug.Log("Living environment downgraded - Monthly charges decreased");
+    }
 }

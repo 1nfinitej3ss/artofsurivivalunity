@@ -4,8 +4,9 @@ using UnityEngine.SceneManagement;
 
 public class DialogBox : MonoBehaviour
 {
-    public string sceneName;  // The name of the scene to load
-    public string locationKey;  // The PlayerPrefs key for the location
+    // Configuration fields
+    public string sceneName;      // Scene to load when "Yes" is clicked
+    public string locationKey;    // e.g., "Hospital", "School", etc.
     public GameController gameController;
     public LocationToggleManager locationToggleManager;
 
@@ -19,19 +20,49 @@ public class DialogBox : MonoBehaviour
         {
             Debug.LogError("SceneManagerHelper not found! Make sure it exists in your start scene.");
         }
+
+        // Ensure we have a reference to LocationToggleManager
+        if (locationToggleManager == null)
+        {
+            locationToggleManager = LocationToggleManager.Instance;
+            if (locationToggleManager == null)
+            {
+                Debug.LogError("LocationToggleManager not found! Make sure it exists in your scene.");
+            }
+        }
+    }
+
+    void Start()
+    {
+        // Ensure button starts hidden
+        gameObject.SetActive(false);
     }
 
     // Method for "Yes" button click
     public void OnButton1Click()
     {
-        // Mark the location as visited
-        if (locationToggleManager != null)
+        Debug.Log($"DialogBox: OnButton1Click called for location {locationKey}");
+        
+        // Try to find LocationToggleManager if it's null
+        if (locationToggleManager == null)
         {
-            locationToggleManager.VisitLocation(locationKey);
+            locationToggleManager = LocationToggleManager.Instance;
+            if (locationToggleManager == null)
+            {
+                Debug.LogError("DialogBox: Could not find LocationToggleManager instance!");
+                return;
+            }
         }
-        else
+
+        Debug.Log($"DialogBox: Attempting to visit location {locationKey}");
+        locationToggleManager.VisitLocation(locationKey);
+        locationToggleManager.DebugStates();
+        
+        // Optional: Check if this completed the round
+        if (locationToggleManager.IsCurrentRoundComplete())
         {
-            Debug.LogWarning("LocationToggleManager is not assigned!");
+            // Trigger any "all locations visited" events here
+            Debug.Log("All locations have been visited!");
         }
 
         // Update game controller state

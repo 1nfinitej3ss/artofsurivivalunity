@@ -3,6 +3,8 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
+using System.Collections.Generic;
 
 namespace PlanetRunner {
     public class PlayerController : MonoBehaviour {
@@ -58,6 +60,10 @@ namespace PlanetRunner {
 
     private PlayerState playerState;
 
+        private bool debugMode = true;
+        private float lastLogTime = 0f;
+        private const float LOG_INTERVAL = 0.5f; // Log every 0.5 seconds
+
         private void Awake() {
             Debug.Log("Player Awake called - About to Initialize");
             Initialize();
@@ -78,6 +84,12 @@ namespace PlanetRunner {
                 return;
             }
 
+            // Initialize gravity and physics properties
+            playerRigidbody.gravityScale = EnableGravitation ? gravity : 0;
+            playerRigidbody.mass = mass;
+            playerRigidbody.freezeRotation = true;
+            playerRigidbody.velocity = Vector2.zero; // Reset any initial velocity
+
             // Find GameController with more detailed logging
             GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
             Debug.Log($"Searching through {allObjects.Length} objects for GameController");
@@ -94,21 +106,26 @@ namespace PlanetRunner {
             }
 
             whatIsGround = 1 << LayerMask.NameToLayer(Const.GROUND);
-            Debug.Log("PlayerController initialization complete");
+            
+            // Ensure the player starts grounded
+            grounded = true;
+            
+            Debug.Log($"PlayerController initialization complete. Gravity: {playerRigidbody.gravityScale}, Mass: {playerRigidbody.mass}");
         }        
 
         public void UpdateGravity() {
             if (playerRigidbody == null) return;
 
-            if (EnableGravitation) {
+            if (grounded) {
+                // When grounded, disable gravity and use local gravity for planet alignment
+                playerRigidbody.gravityScale = 0;
+                playerRigidbody.mass = 1;
+            } else if (EnableGravitation) {
+                // When in air and gravitation is enabled
                 playerRigidbody.gravityScale = gravity;
                 playerRigidbody.mass = mass;
             } else {
-                playerRigidbody.gravityScale = 0;
-                playerRigidbody.mass = 1;
-            }
-
-            if (grounded) {
+                // When in air but gravitation is disabled
                 playerRigidbody.gravityScale = 0;
                 playerRigidbody.mass = 1;
             }
@@ -116,39 +133,37 @@ namespace PlanetRunner {
             playerRigidbody.freezeRotation = true;
         }
 
-        void Update() {
-            if (GroundCheck != null) {
-                grounded = Physics2D.OverlapCircle(GroundCheck.position, 0.16f, whatIsGround);
-                Debug.Log($"Ground check state: {grounded}");
+        private void Update()
+        {
+            if (gameController == null || !gameController.StartGame)
+            {
+                LogDebug("Update skipped - game not started or controller null");
+                return;
             }
 
-            if (anim != null) {
-                anim.SetBool(Const.GROUND, grounded);
+            // Input state
+            horizontalInput = 0f;
+            if (moveLeft) horizontalInput = -1f;
+            if (moveRight) horizontalInput = 1f;
+
+            if (horizontalInput != 0)
+            {
+                LogDebug($"Moving with input: {horizontalInput}");
             }
 
-            if (gameController != null && gameController.StartGame) {
-                Debug.Log($"Update running - Horizontal Input: {horizontalInput}, Grounded: {grounded}");
-                
-                // Set horizontal input based on button state
-                horizontalInput = 0f;
-                if (moveLeft) horizontalInput = -1f;
-                if (moveRight) horizontalInput = 1f;
+            // Handle orientation BEFORE movement and gravity
+            HandlePlayerOrientation();
 
-                if (grounded) {
-                    DoJump = false;
-                    DoDoubleJump = false;
-                }
+            if (grounded)
+            {
+                HandleMovement();
+            }
 
-                UpdateGravity();
+            UpdateGravity();
 
-                bool doJumpButtonClicked = IsTouchInputForJump();
-                HandleJump(doJumpButtonClicked);
-
-                if (!EnableGravitation && LookTransform != null) {
-                    AlignToPlanet(LookTransform.position);
-                }
-            } else {
-                Debug.Log($"GameController null or StartGame false. Controller: {(gameController != null ? "exists" : "null")}, StartGame: {(gameController != null ? gameController.StartGame.ToString() : "N/A")}");
+            if (!EnableGravitation && LookTransform != null)
+            {
+                AlignToPlanet(LookTransform.position);
             }
         }
 
@@ -182,33 +197,24 @@ namespace PlanetRunner {
         void FixedUpdate() {
             if (gameController != null && gameController.StartGame && playerRigidbody != null) {
                 HandleMovement();
-                Debug.Log($"Handling movement - Velocity: {playerRigidbody.velocity}, Input: {horizontalInput}");
             }
         }
 
-        private void HandleMovement() {
-            if (grounded) {
-                Debug.Log($"Grounded movement - Current velocity: {playerRigidbody.velocity}");
-                
-                if (Mathf.Abs(playerRigidbody.velocity.magnitude) <= 0.01f) {
-                    if (anim != null) anim.SetBool("isRun", false);
-                } else {
-                    if (anim != null) {
-                        anim.SetFloat(Const.SPEED, Mathf.Abs(playerRigidbody.velocity.magnitude));
-                        anim.SetBool("isRun", true);
-                    }
-                }
-
-                if (LookTransform != null) {
-                    ApplyMovementForces();
-                } else {
-                    Debug.LogWarning("LookTransform is null during movement");
-                }
-
-                HandleFlipBasedOnInput();
-            } else {
-                Debug.Log("Not grounded during movement update");
+        private void HandleMovement()
+        {
+            if (LookTransform == null || playerRigidbody == null)
+            {
+                return;
             }
+
+            Vector3 forward = Vector3.Cross(transform.up, -LookTransform.right).normalized;
+            Vector3 right = Vector3.Cross(transform.up, LookTransform.forward).normalized;
+            
+            Vector2 targetVelocity = new Vector2(right.x, right.y) * horizontalInput * speed;
+            Vector2 currentVelocity = playerRigidbody.velocity;
+            Vector2 velocityChange = targetVelocity - currentVelocity;
+            
+            playerRigidbody.AddForce(velocityChange, ForceMode2D.Impulse);
         }
 
         private void ApplyMovementForces() {
@@ -225,9 +231,6 @@ namespace PlanetRunner {
             }
 
             Vector3 velocityChange = CalculateVelocityChange(targetVelocity);
-            
-            Debug.Log($"Applying forces - Input: {horizontalInput}, Target: {targetVelocity}, Change: {velocityChange}");
-            
             playerRigidbody.AddForce(velocityChange, ForceMode2D.Impulse);
         }
 
@@ -244,9 +247,17 @@ namespace PlanetRunner {
             return transform.TransformDirection(velocityChange);
         }
 
-        private void HandleFlipBasedOnInput() {
-            if ((moveRight && !facingRight) || (moveLeft && facingRight)) {
-                Flip();
+        private void HandleFlipBasedOnInput()
+        {
+            if (horizontalInput != 0)
+            {
+                // Flip the sprite based on movement direction
+                bool shouldFaceRight = horizontalInput > 0;
+                transform.localScale = new Vector3(
+                    shouldFaceRight ? Mathf.Abs(transform.localScale.x) : -Mathf.Abs(transform.localScale.x),
+                    transform.localScale.y,
+                    transform.localScale.z
+                );
             }
         }
 
@@ -279,9 +290,9 @@ namespace PlanetRunner {
             AlignToPlanet(pos);
         }
 
-        public void SetLookTransform(Transform lookTransform) {
-            LookTransform = lookTransform;
-            Debug.Log($"LookTransform set to: {(lookTransform != null ? lookTransform.name : "null")}");
+        public void SetLookTransform(Transform newLookTransform)
+        {
+            LookTransform = newLookTransform;
         }
 
         public void SaveSpawnLocation() {
@@ -296,41 +307,64 @@ namespace PlanetRunner {
         }
 
         public void StartChanceCard() {
+            Debug.LogError("StartChanceCard called - Loading ChanceCard scene");
             SceneManager.LoadScene("ChanceCard");
         }
 
         // Button input handlers
-        public void OnMoveLeftButtonDown() {
-            Debug.Log("Left Button DOWN pressed - before state change");
+        public void OnMoveLeftButtonDown()
+        {
+            if (!gameController?.StartGame ?? false)
+            {
+                Debug.LogWarning("Left button pressed but game not started!");
+                return;
+            }
             moveLeft = true;
             moveRight = false;
-            Debug.Log($"Left Button DOWN pressed - after state change. moveLeft: {moveLeft}");
+            LogDebug($"Left button pressed. moveLeft:{moveLeft}, moveRight:{moveRight}, StartGame:{gameController.StartGame}");
         }
 
-        public void OnMoveLeftButtonUp() {
-            if (moveLeft) {
-                moveLeft = false;
-                Debug.Log("Left button released");
+        public void OnMoveLeftButtonUp()
+        {
+            if (!gameController?.StartGame ?? false)
+            {
+                Debug.LogWarning("Left button released but game not started!");
+                return;
             }
+            moveLeft = false;
+            LogDebug($"Left button released. moveLeft:{moveLeft}, moveRight:{moveRight}");
         }
 
-        public void OnMoveRightButtonDown() {
-            Debug.Log("Right Button DOWN pressed - before state change");
+        public void OnMoveRightButtonDown()
+        {
+            if (!gameController?.StartGame ?? false)
+            {
+                Debug.LogWarning("Right button pressed but game not started!");
+                return;
+            }
             moveRight = true;
             moveLeft = false;
-            Debug.Log($"Right Button DOWN pressed - after state change. moveRight: {moveRight}");
+            LogDebug($"Right button pressed. moveLeft:{moveLeft}, moveRight:{moveRight}, StartGame:{gameController.StartGame}");
         }
 
-        public void OnMoveRightButtonUp() {
-            if (moveRight) {
-                moveRight = false;
-                Debug.Log("Right button released");
+        public void OnMoveRightButtonUp()
+        {
+            if (!gameController?.StartGame ?? false)
+            {
+                Debug.LogWarning("Right button released but game not started!");
+                return;
             }
+            moveRight = false;
+            LogDebug($"Right button released. moveLeft:{moveLeft}, moveRight:{moveRight}");
         }
 
         void OnEnable()
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
+            
+            // Verify and restore component references
+            if (playerRigidbody == null) playerRigidbody = GetComponent<Rigidbody2D>();
+            if (gameController == null) gameController = FindObjectOfType<GameController>();
         }
 
         void OnDisable()
@@ -342,78 +376,169 @@ namespace PlanetRunner {
         {
             if (scene.name == "main")
             {
-                // Ensure the PlayerController reference is properly set
-                if (playerState.playerController == null)
-                {
-                    // Find the PlayerController component in the scene
-                    playerState.playerController = FindObjectOfType<PlayerController>();
-                    if (playerState.playerController != null)
-                    {
-                        playerState.playerController.enabled = true;
-                        playerState.playerController.gameObject.SetActive(true);
-                        Debug.Log("PlayerController found and activated in MainScene.");
-                    }
-                    else
-                    {
-                        Debug.LogError("PlayerController not found in MainScene.");
-                    }
-                }
-                else
-                {
-                    // Ensure the PlayerController is enabled and active
-                    playerState.playerController.enabled = true;
-                    playerState.playerController.gameObject.SetActive(true);
-                    Debug.Log("PlayerController activated in MainScene.");
-                }
-
-                // Reset the player's starting position
-                playerState.SetPlayerStartPosition();
+                // Clear any existing movement state immediately
+                ResetMovementState();
+                
+                // Ensure we have references
+                if (playerRigidbody == null) playerRigidbody = GetComponent<Rigidbody2D>();
+                if (gameController == null) gameController = FindObjectOfType<GameController>();
+                
+                StartCoroutine(InitializeAfterSceneLoad());
+                
+                // Enable the component explicitly
+                enabled = true;
+                
+                Debug.Log("PlayerController: Reinitialized on main scene load");
             }
         }
 
-        private void ReconnectUIButtons()
+        private IEnumerator InitializeAfterSceneLoad()
         {
-            // Find the movement buttons
-            GameObject rightButton = GameObject.Find("MoveRightButton");
-            GameObject leftButton = GameObject.Find("MoveLeftButton");
+            yield return new WaitForFixedUpdate();
+            yield return new WaitForFixedUpdate();
 
-            if (rightButton != null && leftButton != null)
+            // Full initialization
+            Initialize();
+            
+            // Reset physics state
+            if (playerRigidbody != null)
             {
-                // Get EventTrigger components
-                EventTrigger rightTrigger = rightButton.GetComponent<EventTrigger>();
-                EventTrigger leftTrigger = leftButton.GetComponent<EventTrigger>();
+                playerRigidbody.velocity = Vector2.zero;
+                playerRigidbody.angularVelocity = 0f;
+                playerRigidbody.simulated = true; // Ensure physics simulation is enabled
+            }
 
-                // Reconnect the event entries
-                foreach (EventTrigger.Entry entry in rightTrigger.triggers)
-                {
-                    if (entry.eventID == EventTriggerType.PointerDown)
-                    {
-                        entry.callback.AddListener((data) => { OnMoveRightButtonDown(); });
-                    }
-                    else if (entry.eventID == EventTriggerType.PointerUp)
-                    {
-                        entry.callback.AddListener((data) => { OnMoveRightButtonUp(); });
-                    }
-                }
-
-                foreach (EventTrigger.Entry entry in leftTrigger.triggers)
-                {
-                    if (entry.eventID == EventTriggerType.PointerDown)
-                    {
-                        entry.callback.AddListener((data) => { OnMoveLeftButtonDown(); });
-                    }
-                    else if (entry.eventID == EventTriggerType.PointerUp)
-                    {
-                        entry.callback.AddListener((data) => { OnMoveLeftButtonUp(); });
-                    }
-                }
-
-                Debug.Log("UI buttons reconnected successfully");
+            // Reconnect UI with debug logging
+            Debug.Log("Attempting to reconnect UI buttons...");
+            ReconnectUIButtons();
+            
+            // Find and set planet reference
+            GameObject planet = GameObject.FindGameObjectWithTag("Planet");
+            if (planet != null)
+            {
+                SetLookTransform(planet.transform);
+                Debug.Log("Planet reference set successfully");
             }
             else
             {
-                Debug.LogWarning("Could not find movement buttons");
+                Debug.LogWarning("No planet found to set as look transform");
             }
+        }
+
+        public void ReconnectUIButtons()
+        {
+            Debug.Log("ReconnectUIButtons called");
+            
+            // Find buttons directly by name
+            GameObject leftButton = GameObject.Find("MoveLeftButton");
+            GameObject rightButton = GameObject.Find("MoveRightButton");
+
+            if (leftButton == null || rightButton == null)
+            {
+                Debug.LogError($"Could not find movement buttons. Left: {leftButton != null}, Right: {rightButton != null}");
+                return;
+            }
+
+            // Try to find or add Button components
+            Button leftButtonComponent = leftButton.GetComponent<Button>();
+            Button rightButtonComponent = rightButton.GetComponent<Button>();
+
+            if (leftButtonComponent == null) leftButtonComponent = leftButton.AddComponent<Button>();
+            if (rightButtonComponent == null) rightButtonComponent = rightButton.AddComponent<Button>();
+
+            // Remove all existing listeners
+            leftButtonComponent.onClick.RemoveAllListeners();
+            rightButtonComponent.onClick.RemoveAllListeners();
+
+            // Setup event triggers for both down and up events
+            SetupButtonEvents(leftButton, OnMoveLeftButtonDown, OnMoveLeftButtonUp, "Left");
+            SetupButtonEvents(rightButton, OnMoveRightButtonDown, OnMoveRightButtonUp, "Right");
+            
+            Debug.Log("Button events reconnected successfully");
+        }
+
+        private void SetupButtonEvents(GameObject button, UnityAction downAction, UnityAction upAction, string buttonName)
+        {
+            // Remove any existing EventTrigger
+            EventTrigger existingTrigger = button.GetComponent<EventTrigger>();
+            if (existingTrigger != null)
+            {
+                DestroyImmediate(existingTrigger);
+            }
+
+            // Add new EventTrigger
+            EventTrigger trigger = button.AddComponent<EventTrigger>();
+
+            // Setup PointerDown
+            EventTrigger.Entry entryDown = new EventTrigger.Entry();
+            entryDown.eventID = EventTriggerType.PointerDown;
+            entryDown.callback.AddListener((data) => { downAction(); });
+            trigger.triggers.Add(entryDown);
+
+            // Setup PointerUp
+            EventTrigger.Entry entryUp = new EventTrigger.Entry();
+            entryUp.eventID = EventTriggerType.PointerUp;
+            entryUp.callback.AddListener((data) => { upAction(); });
+            trigger.triggers.Add(entryUp);
+
+            // Setup PointerExit (in case the pointer leaves the button while pressed)
+            EventTrigger.Entry entryExit = new EventTrigger.Entry();
+            entryExit.eventID = EventTriggerType.PointerExit;
+            entryExit.callback.AddListener((data) => { upAction(); });
+            trigger.triggers.Add(entryExit);
+
+            Debug.Log($"{buttonName} button events setup completed");
+        }
+
+        private void LogDebug(string message)
+        {
+            if (debugMode && Time.time - lastLogTime >= LOG_INTERVAL)
+            {
+                Debug.Log($"[PLAYER_DEBUG] {message}");
+                lastLogTime = Time.time;
+            }
+        }
+
+        private void HandlePlayerOrientation()
+        {
+            if (horizontalInput != 0)
+            {
+                // Always use original scale magnitude for consistency
+                float originalXScale = Mathf.Abs(transform.localScale.x);
+                Vector3 newScale = transform.localScale;
+                
+                // Flip based on input direction (negative for left, positive for right)
+                newScale.x = horizontalInput < 0 ? -originalXScale : originalXScale;
+                
+                transform.localScale = newScale;
+            }
+        }
+
+        public void ResetMovementState()
+        {
+            moveLeft = false;
+            moveRight = false;
+            horizontalInput = 0f;
+            
+            if (playerRigidbody != null)
+            {
+                playerRigidbody.velocity = Vector2.zero;
+                playerRigidbody.angularVelocity = 0f;
+            }
+        }
+
+        public void StartNewGame()
+        {
+            // Clear all monthly effects
+            QuestionTemplate.ClearAllMonthlyEffects();
+            
+            // Reset question state
+            if (QuestionContentManager.Instance != null)
+            {
+                QuestionContentManager.Instance.ResetGameState();
+            }
+
+            // Rest of your existing new game setup...
         }
     }
 }

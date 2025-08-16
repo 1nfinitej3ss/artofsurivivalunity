@@ -23,6 +23,9 @@ public class ProgressBar : MonoBehaviour
     public int Alert = 20;
     public Color BarAlertColor;
 
+    // Add max value setting
+    [SerializeField] private float maxValue = 100f;
+
     [Header("Sound Alert")]
     public AudioClip sound;
     public bool repeat = false;
@@ -46,6 +49,13 @@ public class ProgressBar : MonoBehaviour
 
     private void Start()
     {
+        // Ensure UI components are properly referenced
+        if (bar == null)
+        {
+            Debug.LogError($"Progress Bar {titleType} is missing bar reference!");
+            return;
+        }
+
         txtTitle.text = Title;
         txtTitle.color = TitleColor;
         txtTitle.font = TitleFont;
@@ -55,10 +65,17 @@ public class ProgressBar : MonoBehaviour
         barBackground.color = BarBackGroundColor;
         barBackground.sprite = BarBackGroundSprite;
 
-        PlayerState.Instance.OnStateChange += UpdateUI;
-        barValue = PlayerState.Instance.GetPlayerValue(titleType.ToString());
-        //UpdateUI(titleType.ToString(), (int)barValue);
-        UpdateUI(titleType.ToString(), (int)barValue);
+        // Subscribe to state changes
+        if (PlayerState.Instance != null)
+        {
+            PlayerState.Instance.OnStateChange += UpdateUI;
+            float currentValue = PlayerState.Instance.GetPlayerValue(titleType.ToString());
+            UpdateUI(titleType.ToString(), (int)currentValue);
+        }
+        else
+        {
+            Debug.LogError("PlayerState.Instance is null!");
+        }
     }
 
     private void UpdateUI(string key, int value)
@@ -68,9 +85,18 @@ public class ProgressBar : MonoBehaviour
             if (key.ToLower() != titleType.ToString().ToLower()) return;
             barValue = value;
 
+            if (bar == null)
+            {
+                Debug.LogError($"Progress bar Image component is null for {titleType}!");
+                return;
+            }
+
             bar.fillAmount = value / 100f;
-            //txtTitle.text = Title + " " + value + "/100";
-            txtTitle.text = value.ToString();
+            
+            if (txtTitle != null)
+            {
+                txtTitle.text = value.ToString();
+            }
 
             if (Alert >= value)
             {
@@ -79,6 +105,17 @@ public class ProgressBar : MonoBehaviour
             else
             {
                 bar.color = BarColor;
+            }
+
+            // Add comprehensive console log for time progress bar
+            if (titleType == TitleType.Time)
+            {
+                if (PlayerState.Instance != null)
+                {
+                    // Get the current time value that would be saved as final score
+                    float finalTimeValue = PlayerState.Instance.GetPlayerValue("Time");
+                    Debug.Log($"[TimeCheck] Current Time Attribute: {value}, Final Time Score: {finalTimeValue}, Days Passed: {PlayerState.Instance.totalDaysPassed}, Years Left: {(1825 - PlayerState.Instance.totalDaysPassed) / 365f:F1}");
+                }
             }
         }
     }
