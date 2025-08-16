@@ -1,0 +1,2749 @@
+{
+  "questions": [
+    {
+      "questionId": "home_1",
+      "scene": "home",
+      "text": "Oh no! Your visa is about to expire, and after a decade in the U.S., you're facing the dreaded \"pack-your-bags\" scenario. What are your options?",
+      "minYear": 1,
+      "maxYear": 5,
+      "maxOccurrences": 1,
+      "questionBackgroundKey": "home_bg",
+      "options": [
+        {
+          "id": "A",
+          "text": "Hire a lawyer and apply for an O-1 Visa, the so-called \"artist visa\"",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": -70,
+            "career": 0,
+            "energy": 0,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "This prestigious visa recognizes individuals with extraordinary ability in their field. However, the application process requires significant resources, draining your money, energy, and time."
+        },
+        {
+          "id": "B",
+          "text": "Find any job that can provide you with a work visa.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 10,
+            "career": 0,
+            "energy": -30,
+            "creativity": -50,
+            "time": -50
+          },
+          "resultText": "You secure a job that sponsors your work visa. However, you're uncertain how long you'll need to work there before obtaining a green card, and how much time you'd have for your art practice."
+        },
+        {
+          "id": "C",
+          "text": "Marry someone who can give you a new eligible status.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": -45,
+            "creativity": 0,
+            "time": -20
+          },
+          "resultText": "This shortcut takes a toll on your energy and time as you enter into a different kind of relationship."
+        },
+        {
+          "id": "D",
+          "text": "Continue your life here as undocumented.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": -30,
+            "energy": -50,
+            "creativity": 0,
+            "time": -15
+          },
+          "resultText": "You frequently encounter various limitations and carry a constant level of anxiety throughout your life."
+        }
+      ]
+    },
+    {
+      "questionId": "home_2",
+      "scene": "home",
+      "text": "You\u2019ve worked so hard. You deserve a break! What would you do",
+      "minYear": 1,
+      "maxYear": 5,
+      "maxOccurrences": 1,
+      "questionBackgroundKey": "home_bg",
+      "options": [
+        {
+          "id": "A",
+          "text": "Work on an art project you\u2019ve postponed.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": -10,
+            "creativity": 15,
+            "time": 0
+          },
+          "resultText": "Art is also your job and \"labor\". You feel productive but tiered at the same time."
+        },
+        {
+          "id": "B",
+          "text": "Go hiking in the nearby state park.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": 0,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "Nature revives you, filling you with a renewed sense of energy."
+        },
+        {
+          "id": "C",
+          "text": "Enjoy dream travel plans.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": -50,
+            "career": 0,
+            "energy": 10,
+            "creativity": 15,
+            "time": 0
+          },
+          "resultText": "You invest in an unforgettable journey, sparking your creativity and energizing you at the cost of some savings."
+        },
+        {
+          "id": "D",
+          "text": "Have a me-time",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": 15,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "You recharge with some well-deserved downtime, boosting your energy."
+        }
+      ]
+    },
+    {
+      "questionId": "home_3",
+      "scene": "home",
+      "text": "You want to have a child. What would you do?",
+      "minYear": 1,
+      "maxYear": 5,
+      "maxOccurrences": 1,
+      "questionBackgroundKey": "home_bg",
+      "options": [
+        {
+          "id": "A",
+          "text": "You check your bank account balance and reconsider.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": -20,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "It seems impassible to have both art and child in your life. You convice yourself your art work is your baby."
+        },
+        {
+          "id": "B",
+          "text": "Undeterred, you dive into family life.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": -20,
+            "career": 0,
+            "energy": -30,
+            "creativity": 0,
+            "time": -40
+          },
+          "resultText": "Balancing financial strains and time constraints, you keep your spirits high."
+        },
+        {
+          "id": "C",
+          "text": "You or your partner quit a day job to care for your child and focus on your art career.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": -20,
+            "creativity": 0,
+            "time": -10
+          },
+          "resultText": "The paycheck stops, but the bills keep coming. Exhaustion sets in"
+        },
+        {
+          "id": "D",
+          "text": "Abandon Art",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": -120,
+            "energy": 0,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "You decide to leave your artistic pursuits behind to fully embrace family life, effectively ending your career in the art world."
+        }
+      ]
+    },
+    {
+      "questionId": "home_4",
+      "scene": "home",
+      "text": "While moving furniture, you accidentally create a giant crack on one of your big window. How do you deal with it?",
+      "minYear": 1,
+      "maxYear": 5,
+      "maxOccurrences": 1,
+      "questionBackgroundKey": "home_bg",
+      "options": [
+        {
+          "id": "A",
+          "text": "Out of Pocket. Call an expert to replace the window.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": -20,
+            "career": 0,
+            "energy": 5,
+            "creativity": 0,
+            "time": 10
+          },
+          "resultText": "You dip into your savings to fix the damage, feeling a small sense of relief as you cross this headache off your list."
+        },
+        {
+          "id": "B",
+          "text": "Ask friends or family for funds.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": -10,
+            "career": 0,
+            "energy": -10,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "You swallow your pride and ask for financial help, creating some awkward moments and a slight strain on relationships."
+        },
+        {
+          "id": "C",
+          "text": "Board up and hope for the best.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": -20,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "Out of sight, out of mind\u2014until it inevitably gets worse. You feel the creeping stress of a problem ignored."
+        },
+        {
+          "id": "D",
+          "text": "Attempt a DIY Repair",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": -5,
+            "career": 0,
+            "energy": -10,
+            "creativity": 0,
+            "time": -10
+          },
+          "resultText": "You channel your inner handyman, gathering supplies and watching a few online tutorials. The result isn't perfect, but it's a passable fix that saves money."
+        }
+      ]
+    },
+    {
+      "questionId": "home_5",
+      "scene": "home",
+      "text": "You have 12 days of vacation. You\u2019re expecting family visits and exhibitions in 9 months. How do you spend your time?",
+      "minYear": 1,
+      "maxYear": 5,
+      "maxOccurrences": 1,
+      "questionBackgroundKey": "home_bg",
+      "options": [
+        {
+          "id": "A",
+          "text": "1 day for family, 10 days for art, 1 day for a break.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 20,
+            "energy": -35,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "You go all-in on career growth, squeezing in a tiny break but pushing your limits. Worth it? Time will tell."
+        },
+        {
+          "id": "B",
+          "text": "3 days for family, 6 days for art, 3 days for a break.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": -20,
+            "creativity": 0,
+            "time": -10
+          },
+          "resultText": "A well-balanced approach\u2014family, work, and self-care. But balancing everything still takes a toll."
+        },
+        {
+          "id": "C",
+          "text": "3 days for family, 4 days for art, 5 days for a break.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": 10,
+            "creativity": 10,
+            "time": 0
+          },
+          "resultText": "You prioritize recharging, accepting a small career setback in exchange for renewed energy."
+        },
+        {
+          "id": "D",
+          "text": "5 days for family, 2 days for art, 5 days for a break.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": -10,
+            "energy": -35,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "You dream big and imagine you are an artist with a magic wand. But it turns out your shows go underprepared."
+        }
+      ]
+    },
+    {
+      "questionId": "home_6",
+      "scene": "home",
+      "text": "You\u2019re considering enrolling in a health insurance plan. How do you proceed?",
+      "minYear": 1,
+      "maxYear": 5,
+      "maxOccurrences": 1,
+      "questionBackgroundKey": "home_bg",
+      "options": [
+        {
+          "id": "A",
+          "text": "Plan A (50 money)",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": -50,
+            "career": 0,
+            "energy": 0,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "Comprehensive coverage, including vision and dental. Peace of mind comes at a price."
+        },
+        {
+          "id": "B",
+          "text": "Plan B (40 money)",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": -40,
+            "career": 0,
+            "energy": 0,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "A solid mid-tier option\u2014enough to cover most situations, but not everything."
+        },
+        {
+          "id": "C",
+          "text": "Plan C (30 money)",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": -30,
+            "career": 0,
+            "energy": 0,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "A budget-friendly choice with a high deductible. Hope you don\u2019t need it often."
+        },
+        {
+          "id": "D",
+          "text": "Opt-out",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": -10,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "You roll the dice and skip insurance. Living on the edge\u2026 and hoping nothing goes wrong."
+        }
+      ]
+    },
+    {
+      "questionId": "home_7",
+      "scene": "home",
+      "text": "Your old car keeps dying on you. Last time, it left you stranded on the way to a gallery to install your work. Time to decide.",
+      "minYear": 1,
+      "maxYear": 5,
+      "maxOccurrences": 1,
+      "questionBackgroundKey": "home_bg",
+      "options": [
+        {
+          "id": "A",
+          "text": "Ditch the car",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 10,
+            "career": -10,
+            "energy": -20,
+            "creativity": 0,
+            "time": -30
+          },
+          "resultText": "You bus to work, studio, and galleries. Your mobility is now very limited, and not too easy to go around from place to place. But you are getting familiarized with this new pattern."
+        },
+        {
+          "id": "B",
+          "text": "Get a new car.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": -80,
+            "career": 10,
+            "energy": 15,
+            "creativity": 10,
+            "time": 0
+          },
+          "resultText": "You need the freedom to zip around and actually get things done. Plus, nothing says \u201cproductivity\u201d like not waiting for the bus."
+        },
+        {
+          "id": "C",
+          "text": "Patch it up one more time.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": -40,
+            "career": 0,
+            "energy": 0,
+            "creativity": 0,
+            "time": -20
+          },
+          "resultText": "It runs\u2026 until it doesn\u2019t. But now you\u2019ve got that thrilling little game called \u201cWhen Will It Die Again?\u201d to keep things exciting."
+        }
+      ]
+    },
+    {
+      "questionId": "home_8",
+      "scene": "home",
+      "text": "You want a safety net for when you\u2019re retired or out of income. What\u2019s the plan?",
+      "minYear": 1,
+      "maxYear": 5,
+      "maxOccurrences": 1,
+      "questionBackgroundKey": "home_bg",
+      "options": [
+        {
+          "id": "A",
+          "text": "Got 401K, pention, private IRA, or something else already.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": -10,
+            "career": 0,
+            "energy": 20,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "Nice! Future You is throwing a high-five your way."
+        },
+        {
+          "id": "B",
+          "text": "No extra money. But I will plan for a retirement plan someday.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": 10,
+            "creativity": 0,
+            "time": -10
+          },
+          "resultText": "\u201cI\u2019ll get to that retirement plan... someday.\u201d Turns out, you\u2019re just not ready to admit you might get old."
+        },
+        {
+          "id": "C",
+          "text": "Counting on Social Security",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": -30,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "Extra money for a safety net? Ha! Not happening. But hey, at least Social Security\u2019s got your back (sort of)."
+        },
+        {
+          "id": "D",
+          "text": "After all, you don't wanna think about it right now.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": -50,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "Whether you got an extra money or not, economic literacy is the issue here."
+        }
+      ]
+    },
+    {
+      "questionId": "home_9",
+      "scene": "home",
+      "text": "You\u2019re trying to cut monthly expenses. What\u2019s on the chopping block?",
+      "minYear": 1,
+      "maxYear": 5,
+      "maxOccurrences": 1,
+      "questionBackgroundKey": "home_bg",
+      "options": [
+        {
+          "id": "A",
+          "text": "Rent.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 15,
+            "career": 0,
+            "energy": -30,
+            "creativity": 0,
+            "time": -10
+          },
+          "resultText": "Move to a cheaper apartment a bit further out. You\u2019ve mastered the annual tradition of packing your life into boxes because rent increases every year."
+        },
+        {
+          "id": "B",
+          "text": "Food and healthcare",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 5,
+            "career": 0,
+            "energy": -40,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "Cash saved, health sacrificed. You won\u2019t notice the damage until your body starts giving you aches and exhaustion."
+        },
+        {
+          "id": "C",
+          "text": "Art supplies",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 10,
+            "career": -10,
+            "energy": 0,
+            "creativity": -20,
+            "time": 0
+          },
+          "resultText": "Necessity is the mother of inventions. Sure, but to grow your art, you need to give healthy nutrition too."
+        },
+        {
+          "id": "D",
+          "text": "Social activities",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 10,
+            "career": -20,
+            "energy": 0,
+            "creativity": -10,
+            "time": 0
+          },
+          "resultText": "Cutting off all social interactions that cost money. Congrats, you\u2019re now a hermit artist\u2014fully isolated but hey, the savings are great!"
+        }
+      ]
+    },
+    {
+      "questionId": "home_10",
+      "scene": "home",
+      "text": "You\u2019ve got some extra cash. Do you donate to a nonprofit you believe in or upgrade your old equipment?",
+      "minYear": 1,
+      "maxYear": 5,
+      "maxOccurrences": 1,
+      "questionBackgroundKey": "home_bg",
+      "options": [
+        {
+          "id": "A",
+          "text": "The non-profit organization",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": -10,
+            "career": 0,
+            "energy": 10,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "You support the people out there making the world a better place. Because, let\u2019s be real, someone\u2019s gotta do it, right?"
+        },
+        {
+          "id": "B",
+          "text": "Your own practice.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": -10,
+            "career": 5,
+            "energy": 0,
+            "creativity": 10,
+            "time": 0
+          },
+          "resultText": "Your art comes first. You are not in place to help others right now."
+        },
+        {
+          "id": "C",
+          "text": "Split it",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": -10,
+            "career": 0,
+            "energy": 5,
+            "creativity": 5,
+            "time": 0
+          },
+          "resultText": "A little charity, a little self-care. You\u2019re basically the Robin Hood of your own wallet."
+        },
+        {
+          "id": "D",
+          "text": "Save It for a rainy day",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 10,
+            "career": 0,
+            "energy": -20,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "Because if history has taught you anything, it's that rainy days tend to pour."
+        }
+      ]
+    },
+    {
+      "questionId": "home_11",
+      "scene": "home",
+      "text": "Your family needs your support at home while you are extremely busy with your art career and day jobs. What do you do?",
+      "minYear": 1,
+      "maxYear": 5,
+      "maxOccurrences": 1,
+      "questionBackgroundKey": "home_bg",
+      "options": [
+        {
+          "id": "A",
+          "text": "Stay on the track.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": -20,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "This is your big momentum. Your family will understand... you hope."
+        },
+        {
+          "id": "B",
+          "text": "Stay Home.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": -10,
+            "energy": -20,
+            "creativity": -20,
+            "time": 0
+          },
+          "resultText": "You can\u2019t leave them when they need you even if it means missing out on a dream opportunity."
+        },
+        {
+          "id": "C",
+          "text": "Try to Balance Both.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": -50,
+            "creativity": -40,
+            "time": -15
+          },
+          "resultText": "You\u2019re stretched thin, attempting to juggle family responsibilities and your artistic aspirations. But don't forget to take care of yourself."
+        }
+      ]
+    },
+    {
+      "questionId": "work_1",
+      "scene": "work",
+      "text": "Your visa, your hustle: what\u2019s next? With your current visa, you can only work in the art field. Time to find a job!",
+      "minYear": 1,
+      "maxYear": 5,
+      "maxOccurrences": 2,
+      "questionBackgroundKey": "work_bg",
+      "options": [
+        {
+          "id": "A",
+          "text": "Take an under-the-table job.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 20,
+            "career": 0,
+            "energy": 0,
+            "creativity": 0,
+            "time": -10
+          },
+          "resultText": "It\u2019s not legal, not well-paid, and definitely not your dream gig\u2014but hey, it\u2019s instant cash."
+        },
+        {
+          "id": "B",
+          "text": "Apply for a position at an art gallery or institution.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "randomResults": [
+            {
+              "effects": {
+                "money": 25,
+                "career": 10,
+                "energy": 0,
+                "creativity": 0,
+                "time": -20
+              },
+              "resultText": "Congrats! You landed the job. It\u2019s not glamorous, but it\u2019s a step forward."
+            },
+            {
+              "effects": {
+                "money": 20,
+                "career": 0,
+                "energy": -20,
+                "creativity": 0,
+                "time": -30
+              },
+              "resultText": "Oops. No luck. For now, you\u2019re back to that under-the-table gig."
+            }
+          ]
+        },
+        {
+          "id": "C",
+          "text": "Decide against getting a job and focus entirely on your own artistic practice.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": -20,
+            "career": 0,
+            "energy": 0,
+            "creativity": 10,
+            "time": 10
+          },
+          "resultText": "No job for me! You decide to focus on your art, living the dream (or struggling in it)"
+        }
+      ]
+    },
+    {
+      "questionId": "work_2",
+      "scene": "work",
+      "text": "An unpaid internship opportunity at a well-known art gallery/institution has come up\u2014do you take it?",
+      "minYear": 1,
+      "maxYear": 5,
+      "maxOccurrences": 2,
+      "questionBackgroundKey": "work_bg",
+      "options": [
+        {
+          "id": "A",
+          "text": "Yes, even though it\u2019s unpaid, you believe the experience will be valuable in the long run",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "randomResults": [
+            {
+              "effects": {
+                "money": 0,
+                "career": 10,
+                "energy": 0,
+                "creativity": 10,
+                "time": -10
+              },
+              "resultText": "The internship turns out to be a fantastic learning experience where you develop new skills and gain insight into the art world. Sure, you\u2019re not making money, but the knowledge feels like an investment in your future."
+            },
+            {
+              "effects": {
+                "money": 0,
+                "career": 5,
+                "energy": 0,
+                "creativity": -5,
+                "time": -15
+              },
+              "resultText": "Instead of meaningful work, you\u2019re stuck doing tedious data entry with no chance to grow or learn. This is not what you signed up for."
+            },
+            {
+              "effects": {
+                "money": 5,
+                "career": 10,
+                "energy": 0,
+                "creativity": -20,
+                "time": -10
+              },
+              "resultText": "It wasn't a job that you'd take again. But your boss recognizes your effort and offers you a paid freelance gig at the end of the internship. Finally, some compensation for your time!"
+            },
+            {
+              "effects": {
+                "money": 0,
+                "career": 5,
+                "energy": -10,
+                "creativity": 5,
+                "time": -15
+              },
+              "resultText": "You\u2019re left to your own devices with zero guidance, working in an isolated environment with no clear direction. What was supposed to be an opportunity turns into an exercise in frustration."
+            },
+            {
+              "effects": {
+                "money": 0,
+                "career": 10,
+                "energy": 0,
+                "creativity": 0,
+                "time": -10
+              },
+              "resultText": "The internship isn\u2019t thrilling, but you end up expanding your professional network, which could be useful down the line."
+            },
+            {
+              "effects": {
+                "money": 0,
+                "career": 15,
+                "energy": -20,
+                "creativity": 10,
+                "time": 0
+              },
+              "resultText": "Your supervisor piles an overwhelming number of tasks on you, making you question whether this opportunity was worth it. At least you gained some work experience."
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "text": "No, you\u2019d rather hold out for a paid opportunity.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 10,
+            "career": 0,
+            "energy": 0,
+            "creativity": 0,
+            "time": -10
+          },
+          "resultText": "While you might be missing out on potential connections, at least you\u2019re not working for free."
+        }
+      ]
+    },
+    {
+      "questionId": "work_3",
+      "scene": "work",
+      "text": "A well-known artist is looking for an assistant\u2014Do you take the job?",
+      "minYear": 1,
+      "maxYear": 5,
+      "maxOccurrences": 2,
+      "questionBackgroundKey": "work_bg",
+      "options": [
+        {
+          "id": "A",
+          "text": "Yes, you accept the job.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 15,
+            "career": 10,
+            "energy": 0,
+            "creativity": -5,
+            "time": -20
+          },
+          "resultText": "While it\u2019s an incredible opportunity to work closely with an established artist, it does mean sacrificing some of your own creative energy. You\u2019ll spend most of your time supporting someone else\u2019s vision rather than focusing on your own work."
+        },
+        {
+          "id": "B",
+          "text": "No, you turn it down.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": -5,
+            "energy": 0,
+            "creativity": 5,
+            "time": 0
+          },
+          "resultText": "It might have been a good career move, but you\u2019re not willing to put your own practice on the back burner."
+        }
+      ]
+    },
+    {
+      "questionId": "work_4",
+      "scene": "work",
+      "text": "You once quit your job to prioritize your art. Now you need work again.What\u2019s your next step?",
+      "minYear": 1,
+      "maxYear": 5,
+      "maxOccurrences": 2,
+      "questionBackgroundKey": "work_bg",
+      "options": [
+        {
+          "id": "A",
+          "text": "Take a part-time job to support yourself while keeping time for your art.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 10,
+            "career": 5,
+            "energy": 0,
+            "creativity": 5,
+            "time": -15
+          },
+          "resultText": "It\u2019s a compromise, but one that allows you to maintain a creative practice while earning a bit of income. It\u2019s not always easy, but it keeps your passion alive."
+        },
+        {
+          "id": "B",
+          "text": "Accept a full-time job outside the art world.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 30,
+            "career": 0,
+            "energy": -20,
+            "creativity": -10,
+            "time": -15
+          },
+          "resultText": "While it provides financial stability, health insurance, and maybe even a retirement plan, it leaves you with little time or energy for creative work. Will your art suffer in exchange for security?"
+        },
+        {
+          "id": "C",
+          "text": "Look for a full-time job in the arts, such as an educator or coordinator at an art institution. But this position may be highly competitive!",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "randomResults": [
+            {
+              "effects": {
+                "money": 25,
+                "career": 20,
+                "energy": 10,
+                "creativity": 0,
+                "time": -10
+              },
+              "resultText": "You land the job, giving you both financial stability and a fulfilling career. Success!"
+            },
+            {
+              "effects": {
+                "money": -10,
+                "career": 0,
+                "energy": -20,
+                "creativity": 0,
+                "time": -20
+              },
+              "resultText": "Despite your efforts, you don\u2019t get the job, forcing you to settle for a part-time gig instead. It\u2019s disappointing, but you\u2019ll keep trying."
+            }
+          ]
+        },
+        {
+          "id": "D",
+          "text": "Start your own business.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": -100,
+            "career": 0,
+            "energy": -60,
+            "creativity": 0,
+            "time": -50
+          },
+          "resultText": "It\u2019s a high-risk, high-reward situation. You could end up thriving\u2014or completely broke. Proceed with caution."
+        }
+      ]
+    },
+    {
+      "questionId": "work_5",
+      "scene": "work",
+      "text": "Your boss offers you a promotion, but it comes with higher expectations and more work. what\u2019s your decision?",
+      "minYear": 1,
+      "maxYear": 5,
+      "maxOccurrences": 2,
+      "questionBackgroundKey": "work_bg",
+      "options": [
+        {
+          "id": "A",
+          "text": "Accept the promotion.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 50,
+            "career": 0,
+            "energy": -20,
+            "creativity": 0,
+            "time": -30
+          },
+          "resultText": "The extra income is tempting, but you know it\u2019ll require more of your time and energy. Can you handle the pressure?"
+        },
+        {
+          "id": "B",
+          "text": "Turn it down and stick with your current position.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": -10,
+            "creativity": 15,
+            "time": -10
+          },
+          "resultText": "You\u2019d rather have more mental space and creative freedom than extra cash."
+        }
+      ]
+    },
+    {
+      "questionId": "work_6",
+      "scene": "work",
+      "text": "After months of juggling work, art, and life\u2019s unpredictable challenges, you finally have a break. How do you spend it?",
+      "minYear": 1,
+      "maxYear": 5,
+      "maxOccurrences": 2,
+      "questionBackgroundKey": "work_bg",
+      "options": [
+        {
+          "id": "A",
+          "text": "Head straight to your studio and work on your art.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": -25,
+            "creativity": 0,
+            "time": 10
+          },
+          "resultText": "Even though you\u2019re exhausted, your creative drive won\u2019t let you rest."
+        },
+        {
+          "id": "B",
+          "text": "Do absolutely nothing and focus on self-care.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": 30,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "You desperately need to recharge, and for once, you allow yourself to take a break without guilt."
+        },
+        {
+          "id": "C",
+          "text": "Use the time to plan your next big project or career move.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 10,
+            "career": 0,
+            "energy": -40,
+            "creativity": -20,
+            "time": 0
+          },
+          "resultText": "Because in your world, rest is a luxury you can\u2019t afford."
+        }
+      ]
+    },
+    {
+      "questionId": "work_7",
+      "scene": "work",
+      "text": "You have an opportunity to participate in a high-profile networking event for artists, but it\u2019s happening during your work hours. What\u2019s your move?",
+      "minYear": 1,
+      "maxYear": 5,
+      "maxOccurrences": 2,
+      "questionBackgroundKey": "work_bg",
+      "options": [
+        {
+          "id": "A",
+          "text": "Skip work",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 10,
+            "energy": 10,
+            "creativity": 10,
+            "time": 0
+          },
+          "resultText": "You call in sick. You don't think you have to keep your art life and day job life strictly separate. How your boss is going to think about it is a secondary question."
+        },
+        {
+          "id": "B",
+          "text": "Miss the event",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 10,
+            "career": 0,
+            "energy": -20,
+            "creativity": 0,
+            "time": 20
+          },
+          "resultText": "You keep your art life and day job life strictly separate. If your art career\u2019s meant to survive, it\u2019ll survive without this networking chance."
+        }
+      ]
+    },
+    {
+      "questionId": "work_8",
+      "scene": "work",
+      "text": "You got offered a freelance art gig on top of your day job. It\u2019s decent money, but you\u2019ll have even less time for your personal projects. What\u2019s your move?",
+      "minYear": 1,
+      "maxYear": 5,
+      "maxOccurrences": 2,
+      "questionBackgroundKey": "work_bg",
+      "options": [
+        {
+          "id": "A",
+          "text": "Accept the offer",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 30,
+            "career": 0,
+            "energy": 0,
+            "creativity": 0,
+            "time": -20
+          },
+          "resultText": "Your art practice doesn\u2019t pay the bills, and the freelance gig might just keep the lights on. The creative hustle is a bottomless pit that always needs more water poured in."
+        },
+        {
+          "id": "B",
+          "text": "Turn it down",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": -20,
+            "creativity": 5,
+            "time": 0
+          },
+          "resultText": "You haven\u2019t forgotten what you\u2019re struggling for. Selling your time for money isn\u2019t worth it if it leaves you too exhausted to create your real work."
+        }
+      ]
+    },
+    {
+      "questionId": "studio_1",
+      "text": "A prestigious 3-month artist-residency program awaits. But your boss won\u2019t approve the leave. What do you do?",
+      "maxOccurrences": 2,
+      "minYear": 1,
+      "maxYear": 5,
+      "questionBackgroundKey": "studio_bg",
+      "scene": "studio",
+      "isSecondCharacter": true,
+      "options": [
+        {
+          "id": "A",
+          "text": "Quit your job and go all in. Time to test how committed you are to the starving artist lifestyle!",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "randomResults": [
+            {
+              "effects": {
+                "money": -60,
+                "career": 20,
+                "energy": 0,
+                "creativity": 20,
+                "time": 0
+              },
+              "resultText": "You pay three months\u2019 rent in advance, securing your housing but burning through your savings. At least your art career is moving forward."
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "text": "Skip the residency and stay at your job.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 50,
+            "career": -10,
+            "energy": 0,
+            "creativity": -25,
+            "time": 0
+          },
+          "resultText": "Stability over spontaneity. More money in the bank, but did you just miss a big opportunity?"
+        }
+      ]
+    },
+    {
+      "questionId": "studio_2",
+      "text": "Reality check: Your art isn\u2019t paying the bills never ever. How do you keep going?",
+      "maxOccurrences": 1,
+      "minYear": 1,
+      "maxYear": 5,
+      "questionBackgroundKey": "studio_bg",
+      "scene": "studio",
+      "isSecondCharacter": false,
+      "options": [
+        {
+          "id": "A",
+          "text": "Pivot into making sellable objects or hop on competitive TikTok/YouTube market to get more views and ads on your chennel.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 10,
+            "career": -10,
+            "energy": 0,
+            "creativity": -10,
+            "time": 0
+          },
+          "resultText": "Art meets capitalism. Following trends at the expense of your soul."
+        },
+        {
+          "id": "B",
+          "text": "Get another day job.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 10,
+            "career": -15,
+            "energy": 0,
+            "creativity": -15,
+            "time": -30
+          },
+          "resultText": "More structure, more security, but less time for art. You have to switch the gears several times a day. Are you okay with that?"
+        },
+        {
+          "id": "C",
+          "text": "Apply for grants.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "randomResults": [
+            {
+              "effects": {
+                "money": -10,
+                "career": 0,
+                "energy": -30,
+                "creativity": 0,
+                "time": 0
+              },
+              "resultText": "Free money sounds great, but the process is soul-crushing. Hope you like rejection emails!"
+            },
+            {
+              "effects": {
+                "money": 20,
+                "career": 0,
+                "energy": 0,
+                "creativity": -40,
+                "time": 0
+              },
+              "resultText": "Schmooze your way into opportunities\u2014if you can stomach it."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "questionId": "studio_3",
+      "text": "You need more exposure. Is social media a necessary evil for self-promotion?",
+      "maxOccurrences": 1,
+      "minYear": 1,
+      "maxYear": 5,
+      "questionBackgroundKey": "studio_bg",
+      "scene": "studio",
+      "isSecondCharacter": true,
+      "options": [
+        {
+          "id": "A",
+          "text": "Yes, I\u2019ll do what I have to.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 10,
+            "energy": 0,
+            "creativity": -15,
+            "time": -20
+          },
+          "resultText": "Hashtags, trends, and algorithms are your new artistic medium."
+        },
+        {
+          "id": "B",
+          "text": "Yes, but only sometimes.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 5,
+            "energy": 5,
+            "creativity": 0,
+            "time": -5
+          },
+          "resultText": "You know you\u2019re bad at it, but hey, you try."
+        },
+        {
+          "id": "C",
+          "text": "No, I refuse. Let the galleries handle that.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": -10,
+            "energy": 0,
+            "creativity": 0,
+            "time": 5
+          },
+          "resultText": "You believe artists should focus on their work, not digital clout."
+        },
+        {
+          "id": "D",
+          "text": "No, but I\u2019ll still network in person. ",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 5,
+            "energy": -5,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "Emails/postcards, coffee meetings, and small talk: The old-fashioned way works better for me."
+        }
+      ]
+    },
+    {
+      "questionId": "studio_4",
+      "text": "You want to collaborate with someone who promises to work with you on your future art project. But they\u2019re ghosting your follow-ups. What\u2019s next?",
+      "maxOccurrences": 1,
+      "minYear": 1,
+      "maxYear": 5,
+      "questionBackgroundKey": "studio_bg",
+      "scene": "studio",
+      "isSecondCharacter": true,
+      "options": [
+        {
+          "id": "A",
+          "text": "Give them the benefit of the doubt and keep following up. ",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": -15,
+            "creativity": 0,
+            "time": -10
+          },
+          "resultText": "They\u2019re busy, but persistence might pay off."
+        },
+        {
+          "id": "B",
+          "text": "Offer payment for their expertise.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": -20,
+            "career": 15,
+            "energy": 0,
+            "creativity": 10,
+            "time": 0
+          },
+          "resultText": "Money talks, and suddenly they\u2019re much more interested, and share data you need."
+        },
+        {
+          "id": "C",
+          "text": "Rework your approach.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": -30,
+            "creativity": 5,
+            "time": -30
+          },
+          "resultText": "Maybe they don\u2019t trust you (yet). Time to refine your pitch. "
+        }
+      ]
+    },
+    {
+      "questionId": "studio_5",
+      "text": "You want reviews for your exhibition. How do you make it happen?",
+      "maxOccurrences": 100,
+      "minYear": 1,
+      "maxYear": 5,
+      "questionBackgroundKey": "studio_bg",
+      "scene": "studio",
+      "isSecondCharacter": true,
+      "options": [
+        {
+          "id": "A",
+          "text": "Ask a friend of a friend of a friend who writes for an art magazine.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 5,
+            "energy": 0,
+            "creativity": -5,
+            "time": 0
+          },
+          "resultText": "You\u2019re calling in favors. Let\u2019s hope it pays off."
+        },
+        {
+          "id": "B",
+          "text": "Personally invite art critics to review your show.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "randomResults": [
+            {
+              "effects": {
+                "money": 0,
+                "career": 10,
+                "energy": 0,
+                "creativity": 0,
+                "time": 0
+              },
+              "resultText": "They agree! You get a solid review."
+            }
+          ]
+        },
+        {
+          "id": "C",
+          "text": "Don\u2019t ask anyone. Until they find your work interesting.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": -5,
+            "energy": 0,
+            "creativity": 0,
+            "time": 5
+          },
+          "resultText": "The thought of self-promotion makes you cringe."
+        }
+      ]
+    },
+    {
+      "questionId": "studio_6",
+      "text": "You are looking for a studio space that meets your needs. What\u2019s your best bet?",
+      "maxOccurrences": 1,
+      "minYear": 1,
+      "maxYear": 5,
+      "questionBackgroundKey": "studio_bg",
+      "scene": "studio",
+      "isSecondCharacter": false,
+      "options": [
+        {
+          "id": "A",
+          "text": "Option A: Rent 20. Close to home and work.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": -20,
+            "career": 0,
+            "energy": 0,
+            "creativity": 20,
+            "time": 0
+          },
+          "resultText": "Convenient, but not the cheapest."
+        },
+        {
+          "id": "B",
+          "text": "Option B: Rent 25. Small and far but in an established art community.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": -25,
+            "career": 5,
+            "energy": 0,
+            "creativity": 15,
+            "time": -5
+          },
+          "resultText": "Maybe connections will make up for the lack of space."
+        },
+        {
+          "id": "C",
+          "text": "Option D: Rent 15. Big space you need, but far from everything.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": -15,
+            "career": 0,
+            "energy": 0,
+            "creativity": 25,
+            "time": -5
+          },
+          "resultText": "More room and affordable, but more exhaustion."
+        },
+        {
+          "id": "D",
+          "text": "Stay put.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": 0,
+            "creativity": -10,
+            "time": 0
+          },
+          "resultText": "Moving is a hassle anyway."
+        }
+      ]
+    },
+    {
+      "questionId": "studio_7",
+      "text": "You want to experiment with new materials for a new idea. But at what cost?",
+      "maxOccurrences": 2,
+      "minYear": 1,
+      "maxYear": 5,
+      "questionBackgroundKey": "studio_bg",
+      "scene": "studio",
+      "isSecondCharacter": false,
+      "options": [
+        {
+          "id": "A",
+          "text": "No time to worry. Go for it! ",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "randomResults": [
+            {
+              "effects": {
+                "money": -15,
+                "career": 5,
+                "energy": 0,
+                "creativity": 10,
+                "time": 0
+              },
+              "resultText": "Pushing boundaries means investing in experiments."
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "text": "Stick to what you know.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 5,
+            "energy": -10,
+            "creativity": -30,
+            "time": 0
+          },
+          "resultText": "Resources are tight, and playing it safe is\u2026 safe."
+        }
+      ]
+    },
+    {
+      "questionId": "studio_8",
+      "text": "Applying for a grant: Is it worth the effort?",
+      "maxOccurrences": 100,
+      "minYear": 1,
+      "maxYear": 5,
+      "questionBackgroundKey": "studio_bg",
+      "scene": "studio",
+      "isSecondCharacter": false,
+      "options": [
+        {
+          "id": "A",
+          "text": "Yes, with help from my art world friends",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "randomResults": [
+            {
+              "effects": {
+                "money": 20,
+                "career": 5,
+                "energy": 0,
+                "creativity": 5,
+                "time": -5
+              },
+              "resultText": "Success! You secure funding with Grant A"
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "text": "No, I'll take the stable route with another gig instead",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 30,
+            "career": -15,
+            "energy": 0,
+            "creativity": 0,
+            "time": -10
+          },
+          "resultText": "More security, less art-world approval."
+        }
+      ]
+    },
+    {
+      "questionId": "studio_9",
+      "text": "A well-known gallery wants work that fits their theme in regional favored narratives/formats. What\u2019s your move?",
+      "maxOccurrences": 100,
+      "minYear": 1,
+      "maxYear": 5,
+      "questionBackgroundKey": "studio_bg",
+      "scene": "studio",
+      "isSecondCharacter": true,
+      "options": [
+        {
+          "id": "A",
+          "text": "Create a new piece for the show.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "randomResults": [
+            {
+              "effects": {
+                "money": -20,
+                "career": 20,
+                "energy": 0,
+                "creativity": 10,
+                "time": 10
+              },
+              "resultText": "Your work is well-received and featured prominently."
+            },
+            {
+              "effects": {
+                "money": 0,
+                "career": 10,
+                "energy": 0,
+                "creativity": 0,
+                "time": 0
+              },
+              "resultText": "The gallery accepts it\u2014no extra effort required! "
+            },
+            {
+              "effects": {
+                "money": 0,
+                "career": 0,
+                "energy": 5,
+                "creativity": 10,
+                "time": 0
+              },
+              "resultText": "You focus on your personal work and have a breakthrough."
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "text": "Submit an existing piece that loosely fits.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "randomResults": [
+            {
+              "effects": {
+                "money": 0,
+                "career": 10,
+                "energy": 0,
+                "creativity": 5,
+                "time": 0
+              },
+              "resultText": "The gallery accepts it—no extra effort required!"
+            },
+            {
+              "effects": {
+                "money": 0,
+                "career": -5,
+                "energy": 0,
+                "creativity": -10,
+                "time": 0
+              },
+              "resultText": "They reject it for not fitting the theme well enough."
+            }
+          ]
+        },
+        {
+          "id": "C",
+          "text": "Skip it until you meet like-minded galleries/curators.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "randomResults": [
+            {
+              "effects": {
+                "money": 0,
+                "career": 0,
+                "energy": 5,
+                "creativity": 10,
+                "time": 0
+              },
+              "resultText": "You focus on your personal work and have a breakthrough."
+            },
+            {
+              "effects": {
+                "money": 0,
+                "career": 0,
+                "energy": -5,
+                "creativity": 0,
+                "time": 0
+              },
+              "resultText": "You miss out and feel a little FOMO."
+            }
+          ]
+        }          
+      ]
+    },
+    {
+      "questionId": "studio_10",
+      "text": "Curators haven\u2019t responded to your studio visit invitations and follow-ups. What now?",
+      "maxOccurrences": 2,
+      "minYear": 1,
+      "maxYear": 5,
+      "questionBackgroundKey": "studio_bg",
+      "scene": "studio",
+      "isSecondCharacter": false,
+      "options": [
+        {
+          "id": "A",
+          "text": "Spam them until they respond",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": -20,
+            "energy": 0,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "They\u2019ll remember you\u2014for better or worse."
+        },
+        {
+          "id": "B",
+          "text": "Be patient and keep waiting.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": 0,
+            "creativity": 0,
+            "time": -20
+          },
+          "resultText": "They\u2019re busy. Maybe it\u2019s just not your time yet."
+        },
+        {
+          "id": "C",
+          "text": "Take the hint and move on.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": -20,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "If they\u2019re not interested, no use forcing it."
+        },
+        {
+          "id": "D",
+          "text": "Blame capitalism, the patriarchy, or the art world\u2019s elite gatekeepers.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": 0,
+            "creativity": -20,
+            "time": 0
+          },
+          "resultText": "It\u2019s not paranoia if it\u2019s true\u2026 right?"
+        }
+      ]
+    },
+    {
+      "questionId": "social_1",
+      "scene": "social",
+      "text": "You want to apply for artist residencies, but you need three reference letters. Would you apply?",
+      "minYear": 1,
+      "maxYear": 5,
+      "questionBackgroundKey": "social_bg",
+      "options": [
+        {
+          "id": "A",
+          "text": "Yes. You scavenge your contacts list, praying your old art teacher or that friendly artist acquaintance.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": -20,
+            "career": 10,
+            "energy": 0,
+            "creativity": 15,
+            "time": 0
+          },
+          "resultText": "Success: You somehow assemble killer reference letters and successfully get into the residency."
+        },
+        {
+          "id": "B",
+          "text": "No. You know literally no one you could ask.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": -5,
+            "energy": -10,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "Your contacts are just your mom and the pizza place. You are never good at networking."
+        },
+        {
+          "id": "C",
+          "text": "No. You refuse to play the networking game. It's a form of nepotism.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": -15,
+            "energy": 5,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "Refuse to particpate in nepotism is your active comitment to the art world."
+        }
+      ]
+    },
+    {
+      "questionId": "social_2",
+      "scene": "social",
+      "text": "Some say networking is more important than your actual artwork. What\u2019s your move?",
+      "minYear": 1,
+      "maxYear": 5,
+      "questionBackgroundKey": "social_bg",
+      "options": [
+        {
+          "id": "A",
+          "text": "Try to befriend the big names.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": -20,
+            "creativity": -10,
+            "time": 0
+          },
+          "resultText": "Turns out you\u2019re not the charming socialite you thought you were. They remain unimpressed, and you\u2019re exhausted."
+        },
+        {
+          "id": "B",
+          "text": "Leverage your existing network.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": 5,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "Your art school connections still hold some weight. Dropping familiar names works like a charm."
+        },
+        {
+          "id": "C",
+          "text": "No problem. You\u2019re a natural.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 15,
+            "energy": 10,
+            "creativity": 5,
+            "time": 0
+          },
+          "resultText": "Networking just feels like making friends to you. Easy win."
+        },
+        {
+          "id": "D",
+          "text": "Reject the system.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": -15,
+            "energy": 0,
+            "creativity": 15,
+            "time": 0
+          },
+          "resultText": "You refuse to use your connections for personal gain, even if it means taking the long road. You stay true to your values."
+        }
+      ]
+    },
+    {
+      "questionId": "social_3",
+      "scene": "social",
+      "text": "An art community event needs volunteers. Are you signing up?",
+      "minYear": 1,
+      "maxYear": 5,
+      "questionBackgroundKey": "social_bg",
+      "options": [
+        {
+          "id": "A",
+          "text": "Yes. Why not?",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 5,
+            "energy": 10,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "The event goes well, you make new connections, and feel genuinely fulfilled."
+        },
+        {
+          "id": "B",
+          "text": "No. You stay laser-focused on your own work.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": 0,
+            "creativity": 10,
+            "time": 10
+          },
+          "resultText": "The progress is satisfying, and your projects are flourishing."
+        }
+      ]
+    },
+    {
+      "questionId": "social_4",
+      "scene": "social",
+      "text": "It's another weekend. Your friends have a group show opening today. Are you going?",
+      "minYear": 1,
+      "maxYear": 5,
+      "questionBackgroundKey": "social_bg",
+      "options": [
+        {
+          "id": "A",
+          "text": "Of course! Why not?",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 5,
+            "energy": 10,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "They\u2019re thrilled you came, and you leave feeling inspired and socially recharged."
+        },
+        {
+          "id": "B",
+          "text": "No. You need this weekend to be work-free even though it's your friend's show.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": -5,
+            "energy": 10,
+            "creativity": 0,
+            "time": 5
+          },
+          "resultText": "You watch some tv show and go to bed very early and have restful deep sleep. Enjoy a pieceful night."
+        }
+      ]
+    },
+    {
+      "questionId": "social_5",
+      "scene": "social",
+      "text": "Your friends often ask to hang out, grabbing a dinner at restaurant. Look at your current budget, what would you say?",
+      "minYear": 1,
+      "maxYear": 3,
+      "questionBackgroundKey": "social_bg",
+      "options": [
+        {
+          "id": "A",
+          "text": "Yes, let's have fun!",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": -5,
+            "career": 0,
+            "energy": 10,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "The social energy boost is worth the hit to your wallet."
+        },
+        {
+          "id": "B",
+          "text": "No. I am almost broke now.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": -5,
+            "creativity": 0,
+            "time": 5
+          },
+          "resultText": "You stay home, but the isolation feels heavy."
+        },
+        {
+          "id": "C",
+          "text": "Yes, But let's have fun at my place instead!",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": 5,
+            "creativity": 0,
+            "time": -10
+          },
+          "resultText": "You have a budget friendly solution! You invite them over instead."
+        }
+      ]
+    },
+    {
+      "questionId": "social_6",
+      "scene": "social",
+      "text": "You argue with a well-known artist who treated you unfairly. What do you do?",
+      "minYear": 1,
+      "maxYear": 5,
+      "questionBackgroundKey": "social_bg",
+      "options": [
+        {
+          "id": "A",
+          "text": "Swallow your pride and make peace.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 15,
+            "energy": -30,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "Your career might be affected by it."
+        },
+        {
+          "id": "B",
+          "text": "Burn the bridge!!",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": -15,
+            "energy": 15,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "You cut them out of your life with no regrets."
+        },
+        {
+          "id": "C",
+          "text": "Secretly spread the word.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": -15,
+            "energy": -20,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "Tell everyone about their behavior and let the chips fall where they may."
+        },
+        {
+          "id": "D",
+          "text": "Well... Talk it out.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": -20,
+            "creativity": 5,
+            "time": -15
+          },
+          "resultText": "You explain how you feel and hope for a genuine resolution."
+        }
+      ]
+    },
+    {
+      "questionId": "social_7",
+      "scene": "social",
+      "text": "An artist you just met keeps trying to \u201ceducate\u201d you about your own heritage. You missed the right moment to correct them, and now it feels like they\u2019ll never see you as a professional because of your age/gender/race/appearance/background, etc. What do you do?",
+      "minYear": 1,
+      "maxYear": 5,
+      "questionBackgroundKey": "social_bg",
+      "options": [
+        {
+          "id": "A",
+          "text": "Ghost them. You\u2019ve got better things to do than dealing with them",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": -5,
+            "energy": -5,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "You quietly put some distance between you and the self-proclaimed expert. You feel slightly more at peace, but avoiding them means missing out on potential connections."
+        },
+        {
+          "id": "B",
+          "text": "Nod and smile. Calling them out feels like more trouble than it\u2019s worth.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 5,
+            "energy": -20,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "You listen to their patronizing lecture. Your patience pays off\u2026sort of. But wow, the emotional exhaustion is real."
+        },
+        {
+          "id": "C",
+          "text": "Clear the air. You awkwardly offer to share your perspective.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 10,
+            "energy": -30,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "It\u2019s uncomfortable and energy-draining, but you manage to earn some respect."
+        }
+      ]
+    },
+    {
+      "questionId": "social_8",
+      "scene": "social",
+      "text": "A gallerist keeps mispronouncing your name. How do you respond?",
+      "minYear": 1,
+      "maxYear": 5,
+      "questionBackgroundKey": "social_bg",
+      "options": [
+        {
+          "id": "A",
+          "text": "Keep correcting them, politely but persistently.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 5,
+            "energy": 0,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "They appreciate your patience and eventually get it right."
+        },
+        {
+          "id": "B",
+          "text": "Let it slide.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": -10,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "Better they get your name wrong than avoid talking to you altogether."
+        }
+      ]
+    },
+    {
+      "questionId": "social_9",
+      "scene": "social",
+      "text": "You attend a friend\u2019s show and realize their work looks suspiciously like yours. What do you do?",
+      "minYear": 1,
+      "maxYear": 5,
+      "questionBackgroundKey": "social_bg",
+      "options": [
+        {
+          "id": "A",
+          "text": "Let it go. Nothing is truly original anyway, right?",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": -5,
+            "energy": -10,
+            "creativity": -5,
+            "time": 0
+          },
+          "resultText": "But deep down, you feel betrayed."
+        },
+        {
+          "id": "B",
+          "text": "Instagram rant. You post a comparison calling them out.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": -5,
+            "energy": -10,
+            "creativity": -5,
+            "time": 0
+          },
+          "resultText": "It\u2019s passive-aggressive, and it backfires spectacularly."
+        },
+        {
+          "id": "C",
+          "text": "Talk to your friend.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 5,
+            "energy": -10,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "You mention the similarity and try to have a genuine conversation. It\u2019s awkward but insightful. You\u2019re still a little bitter since your friend said she got a bit of influence from yours."
+        },
+        {
+          "id": "D",
+          "text": "Contact the gallery.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": -10,
+            "energy": 0,
+            "creativity": -5,
+            "time": 0
+          },
+          "resultText": "Accuse them of plagiarism. After a tense investigation, the gallery rules in their favor."
+        }
+      ]
+    },
+    {
+      "questionId": "gallery_1",
+      "scene": "gallery",
+      "text": "You have a chance to show your work at a local art gallery. More exposure sounds nice, but there\u2019s zero financial or installation support. Will you do it?",
+      "minYear": 1,
+      "maxYear": 5,
+      "questionBackgroundKey": "gallery_bg",
+      "isSecondCharacter": false,
+      "options": [
+        {
+          "id": "A",
+          "text": "Yes",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "energy": 0,
+            "time": -30,
+            "money": -20,
+            "career": 10,
+            "creativity": 0
+          },
+          "resultText": "Congrats on the show! Just ignore the gaping hole in your wallet."
+        },
+        {
+          "id": "B",
+          "text": "No",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "energy": 10,
+            "time": 0,
+            "money": 0,
+            "career": -20,
+            "creativity": 0
+          },
+          "resultText": "Maybe next time. Or the time after that."
+        }
+      ]
+    },
+    {
+      "questionId": "gallery_2",
+      "scene": "gallery",
+      "text": "You can exhibit in another city for more exposure. No financial or installation support. Will you go for it?",
+      "minYear": 1,
+      "maxYear": 5,
+      "questionBackgroundKey": "gallery_bg",
+      "isSecondCharacter": false,
+      "options": [
+        {
+          "id": "A",
+          "text": "Yes",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "energy": 0,
+            "time": -35,
+            "money": -25,
+            "career": 10,
+            "creativity": 0
+          },
+          "resultText": "Road trip! But the unpaid labor and hotel bills might sting."
+        },
+        {
+          "id": "B",
+          "text": "No",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "energy": 10,
+            "time": 0,
+            "money": 0,
+            "career": -10,
+            "creativity": 0
+          },
+          "resultText": "Enjoy your well-rested conscience...and slightly hurt career."
+        }
+      ]
+    },
+    {
+      "questionId": "gallery_3",
+      "scene": "gallery",
+      "text": "An oversea art gallery wants to show your work. Still no financial support, but hey, international exposure! Do you say yes?",
+      "minYear": 1,
+      "maxYear": 5,
+      "questionBackgroundKey": "gallery_bg",
+      "isSecondCharacter": false,
+      "options": [
+        {
+          "id": "A",
+          "text": "Yes",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "energy": 0,
+            "time": -40,
+            "money": -50,
+            "career": 15,
+            "creativity": 0
+          },
+          "resultText": "Cross-state art hustle, here you come."
+        },
+        {
+          "id": "B",
+          "text": "No",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "energy": 10,
+            "time": 0,
+            "money": 0,
+            "career": -30,
+            "creativity": 0
+          },
+          "resultText": "You keep your sanity, but your career\u2019s taking a nap."
+        }
+      ]
+    },
+    {
+      "questionId": "gallery_4",
+      "scene": "gallery",
+      "text": "You can exhibit at a local gallery for a small honorarium. Still better than just \u201cexposure\u201d",
+      "minYear": 1,
+      "maxYear": 5,
+      "questionBackgroundKey": "gallery_bg",
+      "isSecondCharacter": false,
+      "options": [
+        {
+          "id": "A",
+          "text": "Yes",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "energy": 0,
+            "time": -30,
+            "money": -10,
+            "career": 15,
+            "creativity": 0
+          },
+          "resultText": "At least you see what they try to achive. Let's have a fancy coffee with that payment."
+        },
+        {
+          "id": "B",
+          "text": "No",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "energy": 10,
+            "time": 0,
+            "money": 0,
+            "career": -20,
+            "creativity": 0
+          },
+          "resultText": "Passing on this one. Your energy levels thank you."
+        }
+      ]
+    },
+    {
+      "questionId": "gallery_5",
+      "scene": "gallery",
+      "text": "An exhibition in another city, and they\u2019re even covering your flight and hotel! You just need to show up. What\u2019s the call?",
+      "minYear": 1,
+      "maxYear": 5,
+      "questionBackgroundKey": "gallery_bg",
+      "isSecondCharacter": false,
+      "options": [
+        {
+          "id": "A",
+          "text": "Yes",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "energy": 0,
+            "time": -20,
+            "money": -5,
+            "career": 15,
+            "creativity": 0
+          },
+          "resultText": "Deal! This package comes with a pinch of career boost."
+        },
+        {
+          "id": "B",
+          "text": "No",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "energy": 10,
+            "time": 0,
+            "money": 0,
+            "career": -15,
+            "creativity": 0
+          },
+          "resultText": "You dodge the hassle, but miss out on potential art-world buzz."
+        }
+      ]
+    },
+    {
+      "questionId": "gallery_6",
+      "scene": "gallery",
+      "text": "You can exhibit at a oversea gallery with a small honorarium, but you\u2019re on your own for handling and installation. Up for it?",
+      "minYear": 1,
+      "maxYear": 5,
+      "questionBackgroundKey": "gallery_bg",
+      "isSecondCharacter": false,
+      "options": [
+        {
+          "id": "A",
+          "text": "Yes",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "energy": 0,
+            "time": -30,
+            "money": -35,
+            "career": 30,
+            "creativity": 0
+          },
+          "resultText": "Low pay-high stress. But you convince yourself, \"it's better than nothing.\""
+        },
+        {
+          "id": "B",
+          "text": "No",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "energy": 10,
+            "time": 0,
+            "money": 0,
+            "career": -30,
+            "creativity": 0
+          },
+          "resultText": "Less stress, but you\u2019re not exactly climbing the ladder."
+        }
+      ]
+    },
+    {
+      "questionId": "gallery_7",
+      "scene": "gallery",
+      "text": "The gallery swore they\u2019d reimburse your travel costs, but the show is over, and you\u2019re still waiting. What\u2019s your move?",
+      "minYear": 1,
+      "maxYear": 5,
+      "questionBackgroundKey": "gallery_bg",
+      "isSecondCharacter": false,
+      "options": [
+        {
+          "id": "A",
+          "text": "Politely follow up: You reach out with all the patience of a saint",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "randomResults": [
+            {
+                "effects": {
+                "money": 10,
+                "career": 5,
+                "energy": 0,
+                "creativity": 0,
+                "time": 0
+                },
+                "resultText": "They actually pay you and respect your professionalism."
+            },
+            {
+                "effects": {
+                "money": -10,
+                "career": -5,
+                "energy": -10,
+                "creativity": 0,
+                "time": 0
+                },
+                "resultText": "They keep ignoring your messages like a ghosted text."
+            }
+            ]
+
+        },
+        {
+          "id": "B",
+          "text": "Let it slide: It's not that much money. You try to stay chill and wait.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "energy": -5,
+            "time": 0,
+            "money": -10,
+            "career": 0,
+            "creativity": 0
+          },
+          "resultText": "The wait continues, and you're left feeling frustrated."
+        }
+      ]
+    },
+    {
+      "questionId": "gallery_8",
+      "scene": "gallery",
+      "text": "You discover your work was damaged during the show. What now?",
+      "minYear": 1,
+      "maxYear": 5,
+      "questionBackgroundKey": "gallery_bg",
+      "isSecondCharacter": false,
+      "options": [
+        {
+          "id": "A",
+          "text": "Demand payment for damages.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "randomResults": [
+            {
+                "effects": {
+                "money": -10,
+                "career": 0,
+                "energy": -20,
+                "creativity": 0,
+                "time": 0
+                },
+                "resultText": "They claim their insurance doesn't cover it because you can't prove when it was damaged."
+            },
+            {
+                "effects": {
+                "money": -10,
+                "career": -15,
+                "energy": -20,
+                "creativity": 0,
+                "time": 0
+                },
+                "resultText": "They aren't insured and ignore your messages like you're spam."
+            },
+            {
+                "effects": {
+                "money": 5,
+                "career": 5,
+                "energy": -10,
+                "creativity": 0,
+                "time": -10
+                },
+                "resultText": "They finally pay you through insurance, but it's a slow, draining process."
+            },
+            {
+                "effects": {
+                "money": -10,
+                "career": 5,
+                "energy": -15,
+                "creativity": 0,
+                "time": -10
+                },
+                "resultText": "They can't reimburse you, but at least they apologize sincerely."
+            }
+            ]
+        },
+        {
+          "id": "B",
+          "text": "Pretend it's fine. You keep quiet to stay on good terms with the gallery.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "energy": -20,
+            "time": -20,
+            "money": -10,
+            "career": 0,
+            "creativity": 0
+          },
+          "resultText": "Guess who's down money, time, and energy? Yep, you."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "questions": [
+    {
+      "questionId": "home_1",
+      "scene": "home",
+      "text": "Oh no! Your visa is about to expire, and after a decade in the U.S., you're facing the dreaded \"pack-your-bags\" scenario. What are your options?",
+      "minYear": 1,
+      "maxYear": 5,
+      "maxOccurrences": 1,
+      "questionBackgroundKey": "home_bg",
+      "options": [
+        {
+          "id": "A",
+          "text": "Hire a lawyer and apply for an O-1 Visa, the so-called \"artist visa\"",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": -70,
+            "career": 0,
+            "energy": 0,
+            "creativity": 0,
+            "time": 0
+          },
+          "resultText": "This prestigious visa recognizes individuals with extraordinary ability in their field. However, the application process requires significant resources, draining your money, energy, and time."
+        },
+        {
+          "id": "B",
+          "text": "Find any job that can provide you with a work visa.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 10,
+            "career": 0,
+            "energy": -30,
+            "creativity": -50,
+            "time": -50
+          },
+          "resultText": "You secure a job that sponsors your work visa. However, you're uncertain how long you'll need to work there before obtaining a green card, and how much time you'd have for your art practice."
+        },
+        {
+          "id": "C",
+          "text": "Marry someone who can give you a new eligible status.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": 0,
+            "energy": -45,
+            "creativity": 0,
+            "time": -20
+          },
+          "resultText": "This shortcut takes a toll on your energy and time as you enter into a different kind of relationship."
+        },
+        {
+          "id": "D",
+          "text": "Continue your life here as undocumented.",
+          "optionsBackgroundKey": "options_bg",
+          "isGameEnding": false,
+          "isMonthlyEffect": false,
+          "effects": {
+            "money": 0,
+            "career": -30,
+            "energy": -50,
+            "creativity": 0,
+            "time": -15
+          },
+          "resultText": "You frequently encounter various limitations and carry a constant level of anxiety throughout your life."
+        }
+      ]
+    }
+  ]
+} 
